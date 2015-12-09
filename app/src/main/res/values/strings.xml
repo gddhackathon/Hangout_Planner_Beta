@@ -5,4 +5,8 @@
     <string name="launch_heading">Soak in the culture around you!</string>
     <string name="launch_heading2">Explore places based on your interests.</string>
     <string name="launch_discover_button_text">Discover</string>
+    <string name="title_activity_destination">DestinationActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
