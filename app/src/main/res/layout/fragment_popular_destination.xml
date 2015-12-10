@@ -20,7 +20,7 @@
             android:orientation="horizontal">
             <EditText
                 android:layout_width="292dp"
-                android:layout_height="70dp"
+                android:layout_height="wrap_content"
                 android:hint="@string/search_your_destinations"
                 android:textColor="#050505"
                 android:textColorHint="#c7c4c4"
@@ -28,7 +28,8 @@
                 android:id="@+id/searchView"
                 android:layout_toLeftOf="@+id/imageView2"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/imageView2" />
             <ImageView
                 android:layout_width="wrap_content"
                 android:src="@drawable/ic_search_black_24dp"
