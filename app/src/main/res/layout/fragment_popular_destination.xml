@@ -5,6 +5,28 @@
     tools:context="com.gdd.hangoutplanner.PopularDestinationFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchDestionationEditText"
+            android:layout_gravity="left|top"
+            android:hint="@string/search_your_destinations"
+            android:textColor="#050505"
+            android:textColorHint="#c7c4c4"
+            android:textStyle="bold"/>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/discover"
+        android:id="@+id/searchDestionationButton"
+        android:layout_gravity="right|top" />
 
     <ListView
         android:id="@+id/listPopularDestiantions"
