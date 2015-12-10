@@ -14,13 +14,11 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <EditText
-                android:layout_width="292dp"
+            <AutoCompleteTextView
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
+                android:id="@+id/searchDestAutoCompView"
+                android:layout_gravity="left|top"
                 android:hint="@string/search_your_destinations"
                 android:textColor="#050505"
                 android:textColorHint="#c7c4c4"
