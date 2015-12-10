@@ -11,4 +11,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_your_destinations">Search your destinations</string>
     <string name="discover">Discover</string>
+    <string name="invalid_place_error_message">Please select popular destination or Enter valid search destination</string>
+    <string name="title_activity_add_favourites_activvity">AddFavouritesActivvity</string>
+    <string name="title_activity_add_favourites">Add Favourites</string>
 </resources>
