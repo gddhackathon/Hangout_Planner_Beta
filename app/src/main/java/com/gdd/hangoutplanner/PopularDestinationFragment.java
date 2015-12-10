@@ -37,7 +37,7 @@ public class PopularDestinationFragment extends Fragment {
     private void autoCompletePlaces(View rootView) {
         System.out.println("in auto complete places");
         AutoCompleteTextView autoCompView = (AutoCompleteTextView) rootView.findViewById(R.id.searchDestAutoCompView);
-        autoCompView.setAdapter(new GooglePlacesUtil(getActivity().getApplicationContext(), R.layout.places_list_item));
+        autoCompView.setAdapter(new GooglePlacesUtil(getActivity().getApplicationContext(), R.layout.places_list_item,R.id.contact_name));
         autoCompView.setOnItemClickListener(autoCompView.getOnItemClickListener());
     }
 

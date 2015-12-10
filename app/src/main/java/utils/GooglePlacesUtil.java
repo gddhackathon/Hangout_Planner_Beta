@@ -27,8 +27,8 @@ public class GooglePlacesUtil extends ArrayAdapter implements Filterable {
 
     private ArrayList<String> resultList;
 
-    public GooglePlacesUtil(Context context, int textViewResourceId) {
-        super(context, textViewResourceId);
+    public GooglePlacesUtil(Context context, int layoutResource,int resourceId) {
+        super(context, layoutResource,resourceId);
     }
 
     @Override
