@@ -1,5 +1,6 @@
 package com.gdd.hangoutplanner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -23,6 +24,11 @@ public class AddFavouritesActivity extends AppCompatActivity {
         System.out.println(getIntent().getStringExtra("latLon"));
         textView.setText(getIntent().getStringExtra("selectedAddress") + getIntent().getStringExtra("latLon"));
 
+    }
+
+    public void destinationOverview(View view){
+        Intent intent = new Intent(this, DestinationOverviewActivity.class);
+        startActivity(intent);
     }
 
 }

@@ -14,4 +14,5 @@
     <string name="invalid_place_error_message">Please select popular destination or Enter valid search destination</string>
     <string name="title_activity_add_favourites_activvity">AddFavouritesActivvity</string>
     <string name="title_activity_add_favourites">Add Favourites</string>
+    <string name="title_activity_destination_overview">DestinationOverviewActivity</string>
 </resources>

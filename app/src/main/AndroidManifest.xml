@@ -44,6 +44,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.gdd.hangoutplanner.DestinationActivity" />
         </activity>
+        <activity
+            android:name=".DestinationOverviewActivity"
+            android:label="@string/title_activity_destination_overview"
+            android:parentActivityName=".AddFavouritesActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.gdd.hangoutplanner.AddFavouritesActivity" />
+        </activity>
     </application>
 
 </manifest>
