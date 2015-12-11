@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.gdd.hangoutplanner.R;
 
+import java.util.ArrayList;
+
 public class AddFavouritesActivity extends AppCompatActivity {
 
     @Override
@@ -28,6 +30,14 @@ public class AddFavouritesActivity extends AppCompatActivity {
 
     public void destinationOverview(View view){
         Intent intent = new Intent(this, DestinationOverviewActivity.class);
+        intent.putExtra("latLon", getIntent().getStringExtra("latLon"));
+        ArrayList<String> interests = new ArrayList<String>();
+        interests.add("lodging");
+        interests.add("point_of_interest");
+        interests.add("place_of_worship");
+        interests.add("restaurant");
+        interests.add("bar");
+        intent.putStringArrayListExtra("interests", interests);
         startActivity(intent);
     }
 

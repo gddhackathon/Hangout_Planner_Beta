@@ -82,8 +82,8 @@ public class PopularDestinationFragment extends Fragment {
             switch (message.what) {
                 case 1:
                     Bundle bundle = message.getData();
-                    locationAddress = bundle.getString("latLon");
-                    locationLatLon = bundle.getString("address");
+                    locationAddress = bundle.getString("address");
+                    locationLatLon = bundle.getString("latLon");
                     break;
                 default:
                     locationAddress = null;
