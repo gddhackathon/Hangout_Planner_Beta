@@ -34,8 +34,8 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
         TextView textView = (TextView) findViewById(R.id.textView3);
         System.out.println(getIntent().getStringExtra("latLon"));
         textView.setText(getIntent().getStringExtra("selectedAddress") + getIntent().getStringExtra("latLon"));
-        latLongs = getIntent().getStringExtra("selectedAddress").split(":");
-        addressSelected = getIntent().getStringExtra("latLon");
+        latLongs = getIntent().getStringExtra("latLon").split(":");
+        addressSelected = getIntent().getStringExtra("selectedAddress");
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
