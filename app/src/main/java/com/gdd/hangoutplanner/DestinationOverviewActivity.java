@@ -59,7 +59,7 @@ public class DestinationOverviewActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         new googleplaces().execute();
     }
-    
+
     private class googleplaces extends AsyncTask<Void,Void,String> {
         String temp;
     @Override

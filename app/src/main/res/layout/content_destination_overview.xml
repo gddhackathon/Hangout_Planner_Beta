@@ -131,7 +131,7 @@
                 android:layout_height="20dp"
                 android:background="@color/colorAccent"
                 android:gravity="center_vertical"
-                android:text="Attractions"
+                android:text="Your Interests"
                 android:textAlignment="center"
                 android:textColor="@color/cardview_light_background"
                 android:textSize="12dp"
