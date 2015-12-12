@@ -19,7 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
-        card_view:cardBackgroundColor="@color/colorPrimaryDark"
         card_view:cardCornerRadius="4dp">
 
         <RelativeLayout
@@ -48,7 +47,7 @@
                 android:gravity="center_vertical"
                 android:text="Current Temperature"
                 android:textAlignment="center"
-                android:textColor="@color/cardview_light_background"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="10dp" />
 
             <TextView
@@ -76,7 +75,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/card_viewTitle"
         android:layout_margin="5dp"
-        card_view:cardBackgroundColor="@color/colorPrimaryDark"
         card_view:cardCornerRadius="4dp">
 
         <RelativeLayout
@@ -106,7 +104,7 @@
                 android:gravity="center_vertical"
                 android:text="May , June , July"
                 android:textAlignment="center"
-                android:textColor="@color/cardview_light_background"
+                android:textColor="@color/cardview_dark_background"
                 android:textSize="10dp" />
 
 
@@ -121,7 +119,6 @@
         android:layout_height="250dp"
         android:layout_below="@+id/card_viewMonths"
         android:layout_margin="5dp"
-        card_view:cardBackgroundColor="@color/colorPrimaryDark"
         card_view:cardCornerRadius="4dp">
 
         <RelativeLayout
@@ -140,14 +137,14 @@
                 android:textSize="12dp"
                 android:textStyle="bold" />
 
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
 
-                
+                <ListView
+                    android:id="@+id/listViewSelectedFav"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txtAttractions"></ListView>
 
-            </ScrollView>
 
 
         </RelativeLayout>

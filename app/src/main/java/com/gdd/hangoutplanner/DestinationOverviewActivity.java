@@ -41,6 +41,13 @@ public class DestinationOverviewActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         System.out.println("In Destination overview activity" + getIntent().getStringExtra("latLon"));
+
+        ListView selectedListView = (ListView) findViewById(R.id.listViewSelectedFav);
+        ArrayList<String> selectedChecks = getIntent().getStringArrayListExtra("checkedFavourites");
+        ArrayAdapter<String> itemsAdapter =
+                new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,selectedChecks);
+        selectedListView.setAdapter(itemsAdapter);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +59,7 @@ public class DestinationOverviewActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         new googleplaces().execute();
     }
-
+    
     private class googleplaces extends AsyncTask<Void,Void,String> {
         String temp;
     @Override
