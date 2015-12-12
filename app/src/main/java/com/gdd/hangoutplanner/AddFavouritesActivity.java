@@ -10,11 +10,20 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gdd.hangoutplanner.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
-public class AddFavouritesActivity extends AppCompatActivity {
+public class AddFavouritesActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    private GoogleMap mMap;
+    private String[] latLongs;
+    private String addressSelected;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +34,11 @@ public class AddFavouritesActivity extends AppCompatActivity {
         TextView textView = (TextView) findViewById(R.id.textView3);
         System.out.println(getIntent().getStringExtra("latLon"));
         textView.setText(getIntent().getStringExtra("selectedAddress") + getIntent().getStringExtra("latLon"));
+        latLongs = getIntent().getStringExtra("selectedAddress").split(":");
+        addressSelected = getIntent().getStringExtra("latLon");
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
     }
 
@@ -39,6 +53,16 @@ public class AddFavouritesActivity extends AppCompatActivity {
         interests.add("bar");
         intent.putStringArrayListExtra("interests", interests);
         startActivity(intent);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        double lat = Double.valueOf(latLongs[0]);
+        double longitude = Double.valueOf(latLongs[1]);
+        LatLng address = new LatLng(lat, longitude);
+        mMap.addMarker(new MarkerOptions().position(address).title(addressSelected));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(address));
     }
 
 }

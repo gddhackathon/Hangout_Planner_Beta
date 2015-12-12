@@ -1,0 +1,19 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=2B:1C:77:3F:44:7A:7B:4B:98:CA:05:6F:99:7E:FD:F5:C3:8E:5C:B6%3Bhangoutplanner.gdd.com.testmap
+
+    You can also add your credentials to an existing key, using this line:
+    2B:1C:77:3F:44:7A:7B:4B:98:CA:05:6F:99:7E:FD:F5:C3:8E:5C:B6;hangoutplanner.gdd.com.testmap
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyCkMp7e_I0zrU2a5jdvaSgJ6TKYctchw-U</string>
+</resources>
