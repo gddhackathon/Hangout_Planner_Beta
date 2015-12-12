@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.gdd.hangoutplanner.R;
 
@@ -42,20 +43,15 @@ public class DestinationOverviewActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         System.out.println("In Destination overview activity" + getIntent().getStringExtra("latLon"));
 
+        TextView addressSelectedTextView  = (TextView) findViewById(R.id.textViewTitle);
+        addressSelectedTextView.setText(getIntent().getStringExtra("addressSelected"));
+
         ListView selectedListView = (ListView) findViewById(R.id.listViewSelectedFav);
         ArrayList<String> selectedChecks = getIntent().getStringArrayListExtra("checkedFavourites");
         ArrayAdapter<String> itemsAdapter =
                 new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,selectedChecks);
         selectedListView.setAdapter(itemsAdapter);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         new googleplaces().execute();
     }

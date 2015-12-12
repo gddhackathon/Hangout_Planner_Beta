@@ -71,6 +71,7 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
             interests.add("bar");
             intent.putStringArrayListExtra("interests", interests);
             intent.putStringArrayListExtra("checkedFavourites", selectedChecks);
+            intent.putExtra("addressSelected", addressSelected);
             startActivity(intent);
         }
 
