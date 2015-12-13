@@ -1,9 +1,9 @@
 package model;
 
-/**
- * Created by AchsahSiri on 12/11/2015.
- */
-public class Clouds {
+import java.io.Serializable;
+
+
+public class Clouds implements Serializable {
 
     public Clouds(String value, String name){
         this.name = name;

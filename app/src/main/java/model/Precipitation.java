@@ -1,9 +1,9 @@
 package model;
 
-/**
- * Created by AchsahSiri on 12/11/2015.
- */
-public class Precipitation {
+import java.io.Serializable;
+
+
+public class Precipitation implements Serializable {
 
     public Precipitation(String mode){
         this.mode = mode;

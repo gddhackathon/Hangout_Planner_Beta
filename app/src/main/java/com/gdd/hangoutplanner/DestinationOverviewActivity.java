@@ -1,5 +1,6 @@
 package com.gdd.hangoutplanner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
@@ -7,9 +8,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,6 +45,7 @@ public class DestinationOverviewActivity extends AppCompatActivity {
         TextView addressSelectedTextView  = (TextView) findViewById(R.id.textViewTitle);
         addressSelectedTextView.setText(getIntent().getStringExtra("addressSelected"));
 
+        //List to show what is selected
         ListView selectedListView = (ListView) findViewById(R.id.listViewSelectedFav);
         ArrayList<String> selectedChecks = getIntent().getStringArrayListExtra("checkedFavourites");
         ArrayAdapter<String> itemsAdapter =
@@ -54,7 +58,7 @@ public class DestinationOverviewActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         Weather weather = DownloadWeatherInfo.makeCall(tempURL);
         System.out.println("icon) = " + weather.getIcon());
-        HashMap<String,List<Place>>  interestVsPlaces = new HashMap<String,List<Place>>();
+        final HashMap<String,List<Place>>  interestVsPlaces = new HashMap<String,List<Place>>();
         for(String interset :selectedChecks) {
             String googlePlacesURL = getUrl(interset);
             System.out.println(googlePlacesURL);
@@ -70,6 +74,18 @@ public class DestinationOverviewActivity extends AppCompatActivity {
                 System.out.println("place. = " + place.getName());
             }
         }
+
+        //On Click of any list item
+        selectedListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                String item = ((TextView)view).getText().toString();
+                Intent  intent = new Intent(getApplication(), DisplayPlacesActivity.class);
+                intent.putExtra("interestVsPlaces", interestVsPlaces);
+                startActivity(intent);
+            }
+        });
     }
 
     private String getWeatherURL(){

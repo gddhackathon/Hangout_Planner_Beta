@@ -1,9 +1,11 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Created by AchsahSiri on 12/11/2015.
  */
-public class City {
+public class City implements Serializable {
     private String id;
     private String name;
     private CoOrdinate coOrdinate;

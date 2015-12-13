@@ -1,9 +1,9 @@
 package model;
 
-/**
- * Created by AchsahSiri on 12/11/2015.
- */
-public class Wind {
+import java.io.Serializable;
+
+
+public class Wind implements Serializable {
 
     public Wind(){
 

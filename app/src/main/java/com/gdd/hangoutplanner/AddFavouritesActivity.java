@@ -28,8 +28,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddFavouritesActivity extends AppCompatActivity implements OnMapReadyCallback,
-        ShareActionProvider.OnShareTargetSelectedListener {
+public class AddFavouritesActivity extends AppCompatActivity implements OnMapReadyCallback{
 
     private GoogleMap mMap;
     private String[] latLongs;
@@ -44,8 +43,7 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
 
     final ArrayList<String> selectedChecks = new ArrayList<String>();
 
-    private ShareActionProvider share=null;
-    private Intent mShareIntent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,12 +61,6 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         addListenersToCheckBoxes();
-
-        //Below code is removable to other activity
-        mShareIntent = new Intent();
-        mShareIntent.setAction(Intent.ACTION_SEND);
-        mShareIntent.setType("text/plain");
-        mShareIntent.putExtra(Intent.EXTRA_TEXT, "I am Sending a Test Message , Place me Places List Activity Layout");
 
     }
 
@@ -94,30 +86,12 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
         return super.onOptionsItemSelected(item);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_home, menu);
-
-        MenuItem item=menu.findItem(R.id.share);
-
-        share=(ShareActionProvider)MenuItemCompat.getActionProvider(item);
-
-        if (share != null) {
-            share.setShareIntent(mShareIntent);
-        }
-
         return true;
     }
 
-    @Override
-    public boolean onShareTargetSelected(ShareActionProvider source,
-                                         Intent intent) {
-        Toast.makeText(this, intent.getComponent().toString(),
-                Toast.LENGTH_LONG).show();
-
-        return(false);
-    }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {

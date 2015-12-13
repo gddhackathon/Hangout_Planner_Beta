@@ -1,11 +1,9 @@
 package model;
 
+import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by AchsahSiri on 12/12/2015.
- */
-public class Place {
+public class Place implements Serializable {
 
     private Geometry geometry;
     private String icon;

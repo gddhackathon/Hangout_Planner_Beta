@@ -1,9 +1,8 @@
 package model;
 
-/**
- * Created by AchsahSiri on 12/11/2015.
- */
-public class Weather {
+import java.io.Serializable;
+
+public class Weather implements Serializable {
     private String description;
     private String icon;
     private City city;

@@ -1,9 +1,9 @@
 package model;
 
-/**
- * Created by AchsahSiri on 12/11/2015.
- */
-public class Temperature {
+
+import java.io.Serializable;
+
+public class Temperature implements Serializable {
     private String current;
     private String min;
     private String max;

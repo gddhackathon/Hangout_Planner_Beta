@@ -1,9 +1,8 @@
 package model;
 
-/**
- * Created by AchsahSiri on 12/11/2015.
- */
-public class CoOrdinate {
+import java.io.Serializable;
+
+public class CoOrdinate  implements Serializable {
 
     private String lat;
     private String lon;

@@ -16,7 +16,6 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -57,6 +56,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.gdd.hangoutplanner.AddFavouritesActivity" />
+        </activity>
+        <activity
+            android:name=".DisplayPlacesActivity"
+            android:label="@string/title_activity_display_places"
+            android:parentActivityName=".DestinationOverviewActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.gdd.hangoutplanner.DestinationOverviewActivity" />
         </activity>
     </application>
 
