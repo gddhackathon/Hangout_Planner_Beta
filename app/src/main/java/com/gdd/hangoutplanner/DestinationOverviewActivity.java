@@ -1,6 +1,8 @@
 package com.gdd.hangoutplanner;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
@@ -10,10 +12,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -80,12 +84,36 @@ public class DestinationOverviewActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                String item = ((TextView)view).getText().toString();
-                Intent  intent = new Intent(getApplication(), DisplayPlacesActivity.class);
+                String item = ((TextView) view).getText().toString();
+                Intent intent = new Intent(getApplication(), DisplayPlacesActivity.class);
                 intent.putExtra("interestVsPlaces", interestVsPlaces);
                 startActivity(intent);
             }
         });
+
+        //Loading Weathe Details
+        TextView textViewTemp = (TextView) findViewById(R.id.textViewTemp);
+        textViewTemp.setText("Right Now " + weather.getTemperature().getCurrent());
+        TextView textViewMax = (TextView) findViewById(R.id.textViewMax);
+        textViewMax.setText("Max "+weather.getTemperature().getMax());
+        TextView textViewMin = (TextView) findViewById(R.id.textViewMin);
+        textViewMin.setText("Min "+weather.getTemperature().getMin());
+        TextView textViewCondition = (TextView) findViewById(R.id.textViewCondition);
+        textViewCondition.setText(weather.getDescription());
+        TextView textViewhumidity = (TextView) findViewById(R.id.textViewhumidity);
+        textViewhumidity.setText("Humidity"+weather.getHumidity().getValue());
+        ImageView imageView = (ImageView) findViewById(R.id.icon);
+        URL url;
+        Bitmap bmp = null;
+        try {
+            url = new URL(weather.getIcon());
+            bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+        }
+        catch (Exception e){
+
+        }
+        if (bmp !=null)
+            imageView.setImageBitmap(bmp);
     }
 
     private String getWeatherURL(){

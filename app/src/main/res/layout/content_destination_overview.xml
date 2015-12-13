@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.gdd.hangoutplanner.DestinationOverviewActivity"
     tools:showIn="@layout/activity_destination_overview">
@@ -15,145 +15,101 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="CHICAGO"
         android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
         android:id="@+id/textViewTitle"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
+        android:layout_centerHorizontal="true" />
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:background="@color/common_action_bar_splitter"
-        android:layout_marginTop="20dp"
         android:id="@+id/view2"
         android:layout_below="@+id/textViewTitle"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Temperature"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="italic"
-        android:id="@+id/textView6"
-        android:layout_alignTop="@+id/textView7"
-        android:layout_alignParentLeft="true"
-         />
 
     <TextView
+        android:id="@+id/textViewTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="12/12/2015"
-        android:textStyle="italic"
-        android:textColor="@color/colorPrimary"
-        android:id="@+id/textView7"
+        android:text="45"
+        android:layout_alignTop="@+id/view2"
+        android:layout_alignRight="@+id/textViewMin"
+        android:layout_alignEnd="@+id/textViewMin" />
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_hotel_black_24dp"
         android:layout_below="@+id/view2"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="20dp" />
+        android:layout_toLeftOf="@+id/textViewTitle"
+        android:layout_toStartOf="@+id/textViewTitle" />
 
     <TextView
+        android:id="@+id/textViewMax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="80 f"
-        android:textStyle="italic"
-        android:textColor="@color/colorPrimary"
-        android:id="@+id/textView8"
-        android:layout_below="@+id/textView6"
-        android:layout_alignRight="@+id/textView6"
-        android:layout_alignEnd="@+id/textView6" />
+        android:text="Max : 46"
+        android:layout_alignBottom="@+id/icon"
+        android:layout_alignRight="@+id/textViewMin"
+        android:layout_alignEnd="@+id/textViewMin" />
 
     <TextView
+        android:id="@+id/textViewMin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Min : 30"
+        android:layout_below="@+id/textViewMax"
+        android:layout_alignRight="@+id/textViewhumidity"
+        android:layout_alignEnd="@+id/textViewhumidity" />
+
+    <TextView
+        android:id="@+id/textViewCondition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Cloudy"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="italic"
-        android:id="@+id/textView9"
-        android:layout_alignParentRight="true"
-        android:layout_alignBottom="@+id/textView8"
-        android:layout_alignLeft="@+id/textView7"
-        android:layout_alignStart="@+id/textView7" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/icon"
+        android:layout_alignRight="@+id/icon"
+        android:layout_alignEnd="@+id/icon"
+        android:layout_marginTop="22dp" />
+
+    <TextView
+        android:id="@+id/textViewhumidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Humidity : 50"
+        android:layout_below="@+id/textViewMin"
+        android:layout_toRightOf="@+id/textView5"
+        android:layout_toEndOf="@+id/textView5" />
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
         android:background="@color/common_action_bar_splitter"
-        android:layout_marginTop="20dp"
         android:id="@+id/view3"
-        android:layout_below="@+id/textView9"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Best Months To visit "
-        android:textStyle="bold"
-        android:textColor="@color/colorPrimary"
-        android:id="@+id/textView10"
-        android:layout_marginTop="19dp"
-        android:layout_below="@+id/view3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginLeft="19dp"
-        android:layout_marginStart="19dp" />
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@color/common_action_bar_splitter"
-        android:layout_marginTop="20dp"
-        android:id="@+id/view5"
-        android:layout_below="@+id/textView10"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dp"
-        android:background="@color/common_action_bar_splitter"
-        android:layout_marginTop="20dp"
-        android:id="@+id/view4"
-        android:layout_below="@+id/textView10"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Jan. Feb , March"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="italic"
-        android:id="@+id/textView11"
-        android:layout_alignTop="@+id/textView10"
-        android:layout_alignLeft="@+id/textView9"
-        android:layout_alignStart="@+id/textView9" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Your Interests"
-        android:textColor="@color/colorPrimary"
-        android:textStyle="bold"
-        android:id="@+id/textView12"
-        android:layout_below="@+id/view5"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignTop="@+id/listViewSelectedFav" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/listViewSelectedFav"
-        android:layout_alignLeft="@+id/textView10"
-        android:layout_alignStart="@+id/textView10"
-        android:layout_below="@+id/textView12" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView5" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Your Interests"
+        android:id="@+id/textView5"
+        android:layout_below="@+id/textViewhumidity"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="21dp" />
 
 
 </RelativeLayout>
