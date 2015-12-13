@@ -55,119 +55,87 @@
                     android:layout_marginRight="10dp"
                     card_view:cardCornerRadius="10dp">
                     <ImageView
-                        android:src="@drawable/nyc"
+                        android:src="@drawable/populardestinations_nyc"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerCrop"/>
+                        android:scaleType="centerInside"
+                        android:adjustViewBounds="true"/>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/card_view2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/card_view"
                     android:layout_gravity="center"
+                    android:layout_below="@+id/card_view"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    card_view:cardBackgroundColor="#81D4FA"
                     card_view:cardCornerRadius="10dp">
-
                     <ImageView
-                        android:src="@drawable/nyc"
+                        android:src="@drawable/populardestinations_miami"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerCrop"/>
+                        android:scaleType="centerInside"
+                        android:adjustViewBounds="true"/>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/card_view3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/card_view2"
                     android:layout_gravity="center"
+                    android:layout_below="@+id/card_view2"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    card_view:cardBackgroundColor="#A5D6A7"
                     card_view:cardCornerRadius="10dp">
                     <ImageView
-                        android:src="@drawable/nyc"
+                        android:src="@drawable/populardestinations_chicago"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerCrop"/>
+                        android:scaleType="centerInside"
+                        android:adjustViewBounds="true"/>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/card_view4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/card_view3"
                     android:layout_gravity="center"
+                    android:layout_below="@+id/card_view3"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    card_view:cardBackgroundColor="#E6EE9C"
                     card_view:cardCornerRadius="10dp">
                     <ImageView
-                        android:src="@drawable/nyc"
+                        android:src="@drawable/populardestinations_seattle"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerCrop"/>
+                        android:scaleType="centerInside"
+                        android:adjustViewBounds="true"/>
                 </android.support.v7.widget.CardView>
 
                 <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/card_view5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_below="@+id/card_view4"
-                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    card_view:cardBackgroundColor="#FFE082"
                     card_view:cardCornerRadius="10dp">
                     <ImageView
-                        android:src="@drawable/nyc"
+                        android:src="@drawable/populardestinations_la"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:scaleType="centerCrop"/>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/card_view6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/card_view5"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    card_view:cardBackgroundColor="#2196F3"
-                    card_view:cardCornerRadius="10dp">
-                    <ImageView
-                        android:src="@drawable/nyc"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"/>
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/card_view7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/card_view6"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    card_view:cardBackgroundColor="#BCAAA4"
-                    card_view:cardCornerRadius="10dp">
-                    <ImageView
-                        android:src="@drawable/nyc"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"/>
+                        android:scaleType="centerInside"
+                        android:adjustViewBounds="true"/>
                 </android.support.v7.widget.CardView>
             </RelativeLayout>
         </RelativeLayout>
