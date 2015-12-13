@@ -4,8 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,11 +22,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import android.support.v7.widget.ShareActionProvider;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddFavouritesActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class AddFavouritesActivity extends AppCompatActivity implements OnMapReadyCallback,
+        ShareActionProvider.OnShareTargetSelectedListener {
 
     private GoogleMap mMap;
     private String[] latLongs;
@@ -37,6 +43,9 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
     private CheckBox chkfood;
 
     final ArrayList<String> selectedChecks = new ArrayList<String>();
+
+    private ShareActionProvider share=null;
+    private Intent mShareIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +63,13 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         addListenersToCheckBoxes();
+
+        //Below code is removable to other activity
+        mShareIntent = new Intent();
+        mShareIntent.setAction(Intent.ACTION_SEND);
+        mShareIntent.setType("text/plain");
+        mShareIntent.putExtra(Intent.EXTRA_TEXT, "I am Sending a Test Message , Place me Places List Activity Layout");
+
     }
 
     @Override
@@ -82,7 +98,25 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_home, menu);
+
+        MenuItem item=menu.findItem(R.id.share);
+
+        share=(ShareActionProvider)MenuItemCompat.getActionProvider(item);
+
+        if (share != null) {
+            share.setShareIntent(mShareIntent);
+        }
+
         return true;
+    }
+
+    @Override
+    public boolean onShareTargetSelected(ShareActionProvider source,
+                                         Intent intent) {
+        Toast.makeText(this, intent.getComponent().toString(),
+                Toast.LENGTH_LONG).show();
+
+        return(false);
     }
 
     @Override
