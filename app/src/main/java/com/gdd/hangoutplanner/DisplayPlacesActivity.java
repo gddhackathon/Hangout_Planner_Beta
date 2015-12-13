@@ -11,8 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.gdd.hangoutplanner.R;
 
@@ -21,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import model.Place;
+import utils.CustomListAdapter;
 
 public class DisplayPlacesActivity extends AppCompatActivity {
 
@@ -47,20 +50,19 @@ public class DisplayPlacesActivity extends AppCompatActivity {
         // Converting HashMap Values into ArrayList - List<Place>
         HashMap<String, String> interestVsPlaces = (HashMap<String, String>) getIntent().getSerializableExtra("interestVsPlaces");
         List valueList = new ArrayList(interestVsPlaces.values());
-        ArrayList<String> places = new ArrayList<>(80);
-        for (int i=0 ; i< valueList.size(); i++){
-            List<Place> placesList = (ArrayList) valueList.get(i);
-                for (Place place : placesList){
-                    System.out.println(place.getName());
-                    places.add(place.getName());
-                }
-        }
+        ArrayList places = (ArrayList)valueList.get(0);
+        final ListView lv1 = (ListView) findViewById(R.id.custom_list);
+        lv1.setAdapter(new CustomListAdapter(this, places));
+        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-        //Displaying All the Places in a list
-        ListView selectedListView = (ListView) findViewById(R.id.listViewPlaces);
-        ArrayAdapter<String> itemsAdapter =
-                new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,places);
-        selectedListView.setAdapter(itemsAdapter);
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                Object o = lv1.getItemAtPosition(position);
+                Place newsData = (Place) o;
+                Toast.makeText(getApplication(), "Selected :" + " " + newsData.getName(), Toast.LENGTH_LONG).show();
+            }
+        });
+
 
         //For Sharing
         mShareIntent = new Intent();

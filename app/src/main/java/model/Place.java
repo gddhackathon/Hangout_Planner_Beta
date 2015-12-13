@@ -15,11 +15,12 @@ public class Place implements Serializable {
     private String openNow;
     private List<String> types;
 
-    public Place(){
+    public Place() {
 
     }
+
     public Place(Geometry geometry, String icon, String name, String place_id, String rating, String address
-                    ,String priceLevel, String openNow, List<String> types) {
+            , String priceLevel, String openNow, List<String> types) {
         this.geometry = geometry;
         this.icon = icon;
         this.name = name;
