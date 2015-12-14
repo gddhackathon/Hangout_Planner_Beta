@@ -2,6 +2,7 @@ package com.gdd.hangoutplanner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
@@ -12,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -50,6 +52,7 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_favourites);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Select your Interests");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
         System.out.println(getIntent().getStringExtra("latLon"));
@@ -59,6 +62,14 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         addListenersToCheckBoxes();
+        Button buttonGetPlaces = (Button) findViewById(R.id.buttonGetPlaces);
+        buttonGetPlaces.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getNextActivityIntent();
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -67,21 +78,27 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
         int id = item.getItemId();
 
         if (id == R.id.action_next) {
-            Intent intent = new Intent(this, DestinationOverviewActivity.class);
-            intent.putExtra("latLon", getIntent().getStringExtra("latLon"));
-            ArrayList<String> interests = new ArrayList<String>();
-            interests.add("lodging");
-            interests.add("point_of_interest");
-            interests.add("place_of_worship");
-            interests.add("restaurant");
-            interests.add("bar");
-            intent.putStringArrayListExtra("interests", interests);
-            intent.putStringArrayListExtra("checkedFavourites", selectedChecks);
-            intent.putExtra("addressSelected", addressSelected);
+            Intent intent = getNextActivityIntent();
             startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @NonNull
+    private Intent getNextActivityIntent() {
+        Intent intent = new Intent(this, DestinationOverviewActivity.class);
+        intent.putExtra("latLon", getIntent().getStringExtra("latLon"));
+        ArrayList<String> interests = new ArrayList<String>();
+        interests.add("lodging");
+        interests.add("point_of_interest");
+        interests.add("place_of_worship");
+        interests.add("restaurant");
+        interests.add("bar");
+        intent.putStringArrayListExtra("interests", interests);
+        intent.putStringArrayListExtra("checkedFavourites", selectedChecks);
+        intent.putExtra("addressSelected", addressSelected);
+        return intent;
     }
 
     @Override
@@ -184,5 +201,6 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
         });
 
     }
+
 
 }

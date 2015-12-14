@@ -50,7 +50,7 @@ public class PopularDestinationFragment extends Fragment {
                 if (latLon == null) {
                     Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_place_error_message, Toast.LENGTH_SHORT).show();
                 } else {
-                    Intent intent = new Intent(rootView.getContext(), AddFavouritesActivity.class);
+                    Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
                     intent.putExtra("latLon", latLon);
                     intent.putExtra("selectedAddress", selectedAddress);
                     startActivity(intent);
@@ -70,7 +70,7 @@ public class PopularDestinationFragment extends Fragment {
         imageNyc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(rootView.getContext(), AddFavouritesActivity.class);
+                Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
                 intent.putExtra("latLon", "40.7127:-74.0059");
                 intent.putExtra("selectedAddress", "New York City");
                 startActivity(intent);
@@ -80,7 +80,7 @@ public class PopularDestinationFragment extends Fragment {
         imageChicago.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(rootView.getContext(), AddFavouritesActivity.class);
+                Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
                 intent.putExtra("latLon", "41.8369:-87.6847");
                 intent.putExtra("selectedAddress", "Chicago");
                 startActivity(intent);
@@ -90,7 +90,7 @@ public class PopularDestinationFragment extends Fragment {
         imageMiami.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(rootView.getContext(), AddFavouritesActivity.class);
+                Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
                 intent.putExtra("latLon", "25.7753:-80.2089");
                 intent.putExtra("selectedAddress", "New York City");
                 startActivity(intent);
@@ -100,7 +100,7 @@ public class PopularDestinationFragment extends Fragment {
         imageSeattle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(rootView.getContext(), AddFavouritesActivity.class);
+                Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
                 intent.putExtra("latLon", "47.6097:-122.3331");
                 intent.putExtra("selectedAddress", "Seattle");
                 startActivity(intent);
@@ -110,7 +110,7 @@ public class PopularDestinationFragment extends Fragment {
         imageLA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(rootView.getContext(), AddFavouritesActivity.class);
+                Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
                 intent.putExtra("latLon", "34.0500:-118.2500");
                 intent.putExtra("selectedAddress", "New York City");
                 startActivity(intent);

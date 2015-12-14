@@ -167,5 +167,18 @@
         android:layout_alignLeft="@+id/checkShopping"
         android:layout_alignStart="@+id/checkShopping" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get places"
+        android:textColor="@color/white"
+        android:id="@+id/buttonGetPlaces"
+        android:background="@drawable/roundedbutton"
+        android:onClick="nextPage"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/map"
+        android:layout_alignEnd="@+id/map"
+        android:layout_marginBottom="44dp" />
+
 
 </RelativeLayout>
