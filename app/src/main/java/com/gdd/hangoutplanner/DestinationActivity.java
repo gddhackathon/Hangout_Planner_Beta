@@ -17,8 +17,9 @@ import com.gdd.hangoutplanner.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class    DestinationActivity extends AppCompatActivity {
+import utils.ExceptionHandler;
 
+public class DestinationActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -27,7 +28,7 @@ public class    DestinationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_destination);
-
+        //Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         //Need not have Below
        /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

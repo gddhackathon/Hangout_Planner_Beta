@@ -24,6 +24,7 @@ import java.util.List;
 
 import model.Place;
 import utils.CustomListAdapter;
+import utils.ExceptionHandler;
 
 public class DisplayPlacesActivity extends AppCompatActivity {
 
@@ -33,6 +34,7 @@ public class DisplayPlacesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.activity_display_places);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

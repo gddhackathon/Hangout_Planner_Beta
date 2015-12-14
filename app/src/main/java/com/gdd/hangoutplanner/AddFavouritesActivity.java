@@ -1,8 +1,9 @@
 package com.gdd.hangoutplanner;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
@@ -28,7 +29,12 @@ import android.support.v7.widget.ShareActionProvider;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+
+import model.HangoutPlanner;
+import utils.ExceptionHandler;
 
 public class AddFavouritesActivity extends AppCompatActivity implements OnMapReadyCallback{
 
@@ -46,18 +52,21 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
     final ArrayList<String> selectedChecks = new ArrayList<String>();
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.activity_add_favourites);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Select your Interests");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
-        System.out.println(getIntent().getStringExtra("latLon"));
-        latLongs = getIntent().getStringExtra("latLon").split(":");
-        addressSelected = getIntent().getStringExtra("selectedAddress");
+        HangoutPlanner hangoutPlanner = (HangoutPlanner) getApplicationContext();
+        String latLon = hangoutPlanner.getLatLon();
+        String selectedAddress = hangoutPlanner.getSelectedAddress();
+        System.out.println(latLon);
+        latLongs = latLon.split(":");
+        addressSelected = selectedAddress;
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -76,7 +85,6 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.action_next) {
             Intent intent = getNextActivityIntent();
             startActivity(intent);
@@ -85,19 +93,17 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
         return super.onOptionsItemSelected(item);
     }
 
-    @NonNull
     private Intent getNextActivityIntent() {
+        HangoutPlanner hangoutPlanner = (HangoutPlanner)getApplicationContext();
+        Map<String,String> googleTypesMapping = hangoutPlanner.getGoogleTypesMapping();
+        List<String> checkedFavourites = new ArrayList<>();
+        if (!selectedChecks.isEmpty()) {
+            for (String favourite : selectedChecks) {
+                checkedFavourites.add(googleTypesMapping.get(favourite));
+            }
+        }
+        hangoutPlanner.setSelectedInteresets(checkedFavourites);
         Intent intent = new Intent(this, DestinationOverviewActivity.class);
-        intent.putExtra("latLon", getIntent().getStringExtra("latLon"));
-        ArrayList<String> interests = new ArrayList<String>();
-        interests.add("lodging");
-        interests.add("point_of_interest");
-        interests.add("place_of_worship");
-        interests.add("restaurant");
-        interests.add("bar");
-        intent.putStringArrayListExtra("interests", interests);
-        intent.putStringArrayListExtra("checkedFavourites", selectedChecks);
-        intent.putExtra("addressSelected", addressSelected);
         return intent;
     }
 
@@ -115,6 +121,7 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
         double longitude = Double.valueOf(latLongs[1]);
         LatLng address = new LatLng(lat, longitude);
         mMap.addMarker(new MarkerOptions().position(address).title(addressSelected));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(address));
         float zoomLevel = 6.0f;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(address, zoomLevel));
     }
@@ -201,6 +208,5 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
         });
 
     }
-
 
 }

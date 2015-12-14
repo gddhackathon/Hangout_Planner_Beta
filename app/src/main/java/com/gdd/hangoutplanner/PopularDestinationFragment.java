@@ -4,6 +4,7 @@ package com.gdd.hangoutplanner;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 
 import com.gdd.hangoutplanner.R;
 
+import model.HangoutPlanner;
 import utils.GeocodingLocation;
 import utils.GooglePlacesUtil;
 
@@ -40,6 +42,7 @@ public class PopularDestinationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        final HangoutPlanner hangoutPlanner = (HangoutPlanner)getActivity().getApplicationContext();
         final View rootView = inflater.inflate(R.layout.fragment_popular_destination, container, false);
         autoCompletePlaces(rootView);
 
@@ -51,8 +54,9 @@ public class PopularDestinationFragment extends Fragment {
                     Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_place_error_message, Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
-                    intent.putExtra("latLon", latLon);
-                    intent.putExtra("selectedAddress", selectedAddress);
+                    final HangoutPlanner hangoutPlanner = (HangoutPlanner) getActivity().getApplicationContext();
+                    hangoutPlanner.setLatLon(latLon);
+                    hangoutPlanner.setSelectedAddress(selectedAddress);
                     startActivity(intent);
                 }
             }
@@ -71,8 +75,8 @@ public class PopularDestinationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
-                intent.putExtra("latLon", "40.7127:-74.0059");
-                intent.putExtra("selectedAddress", "New York City");
+                hangoutPlanner.setLatLon("40.7127:-74.0059");
+                hangoutPlanner.setSelectedAddress("New York City");
                 startActivity(intent);
             }
         });
@@ -81,8 +85,8 @@ public class PopularDestinationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
-                intent.putExtra("latLon", "41.8369:-87.6847");
-                intent.putExtra("selectedAddress", "Chicago");
+                hangoutPlanner.setLatLon("41.8369:-87.6847");
+                hangoutPlanner.setSelectedAddress("Chicago");
                 startActivity(intent);
             }
         });
@@ -91,8 +95,8 @@ public class PopularDestinationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
-                intent.putExtra("latLon", "25.7753:-80.2089");
-                intent.putExtra("selectedAddress", "New York City");
+                hangoutPlanner.setLatLon("25.7753:-80.2089");
+                hangoutPlanner.setSelectedAddress("Miami");
                 startActivity(intent);
             }
         });
@@ -101,8 +105,8 @@ public class PopularDestinationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
-                intent.putExtra("latLon", "47.6097:-122.3331");
-                intent.putExtra("selectedAddress", "Seattle");
+                hangoutPlanner.setLatLon("47.6097:-122.3331");
+                hangoutPlanner.setSelectedAddress("Seattle");
                 startActivity(intent);
             }
         });
@@ -111,8 +115,8 @@ public class PopularDestinationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
-                intent.putExtra("latLon", "34.0500:-118.2500");
-                intent.putExtra("selectedAddress", "New York City");
+                hangoutPlanner.setLatLon("34.0500:-118.2500");
+                hangoutPlanner.setSelectedAddress("Los Angeles");
                 startActivity(intent);
             }
         });

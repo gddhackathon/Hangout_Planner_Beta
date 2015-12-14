@@ -28,35 +28,37 @@ import java.util.NavigableMap;
 import java.util.Set;
 import java.util.TreeMap;
 
+import model.HangoutPlanner;
 import model.Place;
 import model.Weather;
 import utils.DownloadGooglePlacesInfo;
 import utils.DownloadWeatherInfo;
+import utils.ExceptionHandler;
 
 public class DestinationOverviewActivity extends AppCompatActivity {
 
-    List<GooglePlace> venuesList;
     final String GOOGLE_KEY = "AIzaSyA2pWuAzJ_agDXpISSGDEh1hnk6B7SPMOw";
-    final String latitude = "40.7463956";
-    final String longtitude = "-73.9852992";
 
-    ArrayAdapter<String> myAdapter;
 
-    ListView placesListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.activity_destination_overview);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        String latLon = getIntent().getStringExtra("latLon");
-
+        HangoutPlanner hangoutPlanner = (HangoutPlanner) getApplicationContext();
+        System.out.println("hangoutPlanner = " + hangoutPlanner.getSelectedInteresets().toArray().toString());
         TextView addressSelectedTextView  = (TextView) findViewById(R.id.textViewTitle);
-        addressSelectedTextView.setText(getIntent().getStringExtra("addressSelected"));
+        addressSelectedTextView.setText(hangoutPlanner.getSelectedAddress());
 
         //List to show what is selected
         ListView selectedListView = (ListView) findViewById(R.id.listViewSelectedFav);
-        ArrayList<String> selectedChecks = getIntent().getStringArrayListExtra("checkedFavourites");
+        List<String> selectedChecks = hangoutPlanner.getSelectedInteresets();
+        selectedChecks.add("Tourist attractions");
+        for(String fav :selectedChecks){
+            System.out.println("fav = " + fav);
+        }
         ArrayAdapter<String> itemsAdapter =
                 new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,selectedChecks);
         selectedListView.setAdapter(itemsAdapter);
@@ -91,8 +93,15 @@ public class DestinationOverviewActivity extends AppCompatActivity {
                                     long id) {
                 String item = ((TextView) view).getText().toString();
                 Intent intent = new Intent(getApplication(), DisplayPlacesActivity.class);
-                intent.putExtra("interestVsPlaces", interestVsPlaces);
-                intent.putExtra("selectedInterestVsPlaces",getShortedList(item,interestVsPlaces));
+                if(item.equalsIgnoreCase("Tourist attractions")){
+                    String googlePlacesURLForTouristAttractions = getURLForTouristAttractions();
+                    List<Place> places = DownloadGooglePlacesInfo.makeCall(getURLForTouristAttractions());
+                    intent.putExtra("selectedInterestVsPlaces",(ArrayList)places);
+                }
+                else {
+                    //intent.putExtra("interestVsPlaces", interestVsPlaces);
+                    intent.putExtra("selectedInterestVsPlaces",(ArrayList)interestVsPlaces.get(item));
+                }
                 startActivity(intent);
             }
         });
@@ -122,64 +131,17 @@ public class DestinationOverviewActivity extends AppCompatActivity {
             imageView.setImageBitmap(bmp);
     }
 
-    private ArrayList<Place> getShortedList(String item, HashMap<String, List<Place>> interestVsPlaces) {
-        List<Place> selectedInterestPlaces = new ArrayList<Place>();
-        List<ArrayList<Place>> otherInterestPlaces = new ArrayList<ArrayList<Place>>();
-        for (Map.Entry<String, List<Place>> places : interestVsPlaces.entrySet()) {
-            String interest = places.getKey();
-            if(item.equals(interest)){
-                selectedInterestPlaces = places.getValue();
-            }
-            else{
-                otherInterestPlaces.add((ArrayList<Place>) places.getValue());
-            }
-        }
-        return sortSelectedInterestPlaces(selectedInterestPlaces, otherInterestPlaces);
-    }
-
-    private ArrayList<Place> sortSelectedInterestPlaces(List<Place> selectedInterestPlaces, List<ArrayList<Place>> otherInterestPlaces) {
-        HashMap<Place, Integer> selectedInterestPlacesInSortedOrder = new HashMap<Place, Integer>();
-        for(Place place :selectedInterestPlaces){
-            int currentPlacematchingCount = 1;
-            for(ArrayList<Place> placeArrayList : otherInterestPlaces){
-                if(placeArrayList.contains(place)){
-                    currentPlacematchingCount++;
-                }
-            }
-            selectedInterestPlacesInSortedOrder.put(place, currentPlacematchingCount);
-        }
-        return sortPlacesInOrder(selectedInterestPlacesInSortedOrder);
-    }
-
-    private ArrayList<Place> sortPlacesInOrder(HashMap<Place, Integer> selectedInterestPlacesInSortedOrder){
-        List<Map.Entry<Place, Integer>> list = new ArrayList<Map.Entry<Place, Integer>>(selectedInterestPlacesInSortedOrder.entrySet());
-        Collections.sort(list, new Comparator<Map.Entry<Place, Integer>>() {
-            public int compare(Map.Entry<Place, Integer> o1, Map.Entry<Place, Integer> o2) {
-                return (o2.getValue()).compareTo(o1.getValue());
-            }
-        });
-        ArrayList<Place> places = new ArrayList<Place>();
-        for(Map.Entry<Place, Integer> entry:list){
-            places.add(entry.getKey());
-        }
-        System.out.println("sorted places");
-        for(Place place :places){
-            System.out.println("place = " + place.toString());
-        }
-        return places;
-    }
-
     private String getWeatherURL(){
         return "http://api.openweathermap.org/data/2.5/find?lat="+getLat()+"&lon="+getLon()+"&cnt=1&units=Imperial&appid=2de143494c0b295cca9337e1e96b00e0&mode=json";
     }
 
     private String getLat(){
-        String latLon[] = getIntent().getStringExtra("latLon").split(":");
+        String latLon[] = getSavedLatLon().split(":");
         return latLon[0];
     }
 
     private String getLon(){
-        String latLon[] = getIntent().getStringExtra("latLon").split(":");
+        String latLon[] = getSavedLatLon().split(":");
         return latLon[1];
     }
 
@@ -188,7 +150,7 @@ public class DestinationOverviewActivity extends AppCompatActivity {
     }
 
     private String getLatLon() {
-        String latLon[] = getIntent().getStringExtra("latLon").split(":");
+        String latLon[] = getSavedLatLon().split(":");
         return "location="+latLon[0]+","+latLon[1];
     }
 
@@ -198,5 +160,24 @@ public class DestinationOverviewActivity extends AppCompatActivity {
         return types.toString();
     }
 
+    private String getSavedLatLon(){
+        HangoutPlanner hangoutPlanner = (HangoutPlanner)getApplicationContext();
+        return hangoutPlanner.getLatLon();
+    }
+
+    private String getURLForTouristAttractions() {
+        String url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=tourist attractions in "+getQuery()+"&key="+GOOGLE_KEY;
+        System.out.println("url = " + url);
+        return url;
+    }
+
+    private String getQuery(){
+        StringBuilder query = new StringBuilder();
+        HangoutPlanner hangoutPlanner =  (HangoutPlanner) getApplicationContext();
+        String selectedPlace = hangoutPlanner.getSelectedAddress();
+        query.append(selectedPlace);
+        System.out.println("query = " + query);
+        return query.toString();
+    }
 }
 
