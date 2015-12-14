@@ -28,13 +28,24 @@
         android:layout_toEndOf="@+id/imagePlace" />
 
     <TextView
+        android:id="@+id/types"
+        android:text="types"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#343434"
+        android:textSize="12sp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/title"
+        android:layout_alignStart="@+id/title" />
+
+    <TextView
         android:id="@+id/reporter"
         android:text="test"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#343434"
         android:textSize="12sp"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/types"
         android:layout_alignLeft="@+id/title"
         android:layout_alignStart="@+id/title" />
 

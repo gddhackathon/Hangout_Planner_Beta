@@ -3,7 +3,10 @@ package model;
 import java.io.Serializable;
 import java.util.List;
 
-public class Place implements Serializable {
+/**
+ * Created by AchsahSiri on 12/12/2015.
+ */
+public class Place implements Comparable, Serializable {
 
     private Geometry geometry;
     private String icon;
@@ -15,12 +18,40 @@ public class Place implements Serializable {
     private String openNow;
     private List<String> types;
 
-    public Place() {
-
+    public int compareTo(Object obj){
+        Place place=(Place)obj;
+        if(place_id.equals(place.place_id))
+            return 0;
+        else
+            return -1;
     }
 
+    @Override
+    public boolean equals(Object place) {
+        if ((place instanceof Place) && (((Place) place).getPlace_id().equalsIgnoreCase(place_id))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        return result = prime * result + ((place_id == null) ? 0 : place_id.hashCode());
+    }
+
+    @Override
+    public String toString(){
+        return this.getName();
+    }
+
+    public Place(){
+
+    }
     public Place(Geometry geometry, String icon, String name, String place_id, String rating, String address
-            , String priceLevel, String openNow, List<String> types) {
+                    ,String priceLevel, String openNow, List<String> types) {
         this.geometry = geometry;
         this.icon = icon;
         this.name = name;

@@ -48,11 +48,11 @@ public class DisplayPlacesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Converting HashMap Values into ArrayList - List<Place>
-        HashMap<String, String> interestVsPlaces = (HashMap<String, String>) getIntent().getSerializableExtra("interestVsPlaces");
-        List valueList = new ArrayList(interestVsPlaces.values());
-        ArrayList places = (ArrayList)valueList.get(0);
+        ArrayList<Place> selectedInterestVsPlaces = (ArrayList<Place>) getIntent().getSerializableExtra("selectedInterestVsPlaces");
+        //List valueList = new ArrayList(interestVsPlaces.values());
+        //ArrayList places = (ArrayList)valueList.get(0);
         final ListView lv1 = (ListView) findViewById(R.id.custom_list);
-        lv1.setAdapter(new CustomListAdapter(this, places));
+        lv1.setAdapter(new CustomListAdapter(this, selectedInterestVsPlaces));
         lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override

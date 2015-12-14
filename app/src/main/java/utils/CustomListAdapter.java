@@ -17,10 +17,10 @@ import android.widget.TextView;
 
 import com.gdd.hangoutplanner.R;
 
-import org.apache.commons.codec.binary.StringUtils;
-
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import model.Place;
 
@@ -59,6 +59,7 @@ public class CustomListAdapter extends BaseAdapter {
             holder.imagePlace = (ImageView) convertView.findViewById(R.id.imagePlace);
             holder.headlineView = (TextView) convertView.findViewById(R.id.title);
             holder.reporterNameView = (TextView) convertView.findViewById(R.id.reporter);
+            holder.typesView = (TextView) convertView.findViewById(R.id.types);
             holder.rating = (RatingBar) convertView.findViewById(R.id.rating);
             LayerDrawable stars = (LayerDrawable) holder.rating.getProgressDrawable();
             stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
@@ -82,14 +83,28 @@ public class CustomListAdapter extends BaseAdapter {
         holder.priceLevel.setText(listData.get(position).getOpenNow());
         holder.headlineView.setText(listData.get(position).getName());
         holder.reporterNameView.setText(listData.get(position).getAddress());
+        holder.typesView.setText(getTypes(listData.get(position).getTypes()));
         if( null !=(listData.get(position).getRating()))
         holder.rating.setRating(Float.valueOf(listData.get(position).getRating()));
         return convertView;
     }
 
+    private String getTypes(List<String> googleTypes){
+        StringBuilder type = new StringBuilder("#Types:");
+        List<String> applicationInterests = Arrays.asList("bar", "cafe", "food", "shopping_mall",
+                        "restaurant", "place_of_worship", "museum", "park");
+        for(String applicationInterest : applicationInterests){
+            if(googleTypes.contains(applicationInterest)){
+                type.append(" ").append(applicationInterest).append(",");
+            }
+        }
+        return type.deleteCharAt(type.lastIndexOf(",")).toString();
+    }
+
     static class ViewHolder {
         ImageView imagePlace;
         TextView headlineView;
+        TextView typesView;
         TextView reporterNameView;
         RatingBar rating;
         TextView priceLevel;

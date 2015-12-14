@@ -49,6 +49,10 @@ public class GooglePlacesResultsParser {
                     if (results.getJSONObject(i).has("place_id")) {
                         place.setPlace_id(results.getJSONObject(i).optString("place_id"));
                     }
+                    if(results.getJSONObject(i).has("opening_hours")){
+                        JSONObject openingHours = results.getJSONObject(i).getJSONObject("opening_hours");
+                        place.setOpenNow(getOpenNow(openingHours));
+                    }
                     if (results.getJSONObject(i).has("rating")) {
                         place.setRating(results.getJSONObject(i).optString("rating"));
                     }
@@ -82,6 +86,14 @@ public class GooglePlacesResultsParser {
             }
         }
         return new Geometry(coOrdinate);
+    }
+
+    private static String getOpenNow(JSONObject openingHours){
+        String openNow = "No Data";
+        if(openingHours.has("open_now")){
+                openNow = openingHours.optString("open_now");
+        }
+        return openNow;
     }
 
     private static List<String> getTypes(JSONArray types){
