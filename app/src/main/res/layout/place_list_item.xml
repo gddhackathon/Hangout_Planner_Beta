@@ -40,7 +40,7 @@
 
     <TextView
         android:id="@+id/reporter"
-        android:text="test"
+        android:text="testsssss"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#343434"
@@ -59,17 +59,16 @@
         android:isIndicator="true"
         android:paddingBottom="10dp"
         android:layout_alignBottom="@+id/types"
-        android:layout_alignRight="@+id/textViewPricelevel"
-        android:layout_alignEnd="@+id/textViewPricelevel" />
+        android:layout_alignRight="@+id/textViewOpenNow"
+        android:layout_alignEnd="@+id/textViewOpenNow" />
 
     <TextView
-        android:id="@+id/textViewPricelevel"
+        android:id="@+id/textViewOpenNow"
         android:layout_width="wrap_content"
-        android:text="test"
+        android:text="true"
         android:layout_height="wrap_content"
         android:textColor="#343434"
         android:textSize="12sp"
-        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -83,4 +82,5 @@
         android:layout_above="@+id/rating"
         android:layout_alignLeft="@+id/types"
         android:layout_alignStart="@+id/types" />
+
 </RelativeLayout>

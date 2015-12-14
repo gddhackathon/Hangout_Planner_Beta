@@ -66,7 +66,7 @@ public class CustomListAdapter extends BaseAdapter {
             LayerDrawable stars = (LayerDrawable) holder.rating.getProgressDrawable();
             stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
 
-            holder.priceLevel = (TextView) convertView.findViewById(R.id.textViewPricelevel);
+            holder.openNow = (TextView) convertView.findViewById(R.id.textViewOpenNow);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -80,16 +80,29 @@ public class CustomListAdapter extends BaseAdapter {
         catch (Exception e){
 
         }
-        if (bmp !=null)
-        holder.imagePlace.setImageBitmap(bmp);
+        if (bmp !=null) {
+            holder.imagePlace.setImageBitmap(bmp);
+        }
         holder.address.setText(listData.get(position).getAddress());
-        holder.priceLevel.setText(listData.get(position).getOpenNow());
+
+        setColorToOpenNowText(position, holder);
         holder.headlineView.setText(listData.get(position).getName());
         holder.reporterNameView.setText(listData.get(position).getAddress());
         holder.typesView.setText(getTypes(listData.get(position).getTypes()));
         if( null !=(listData.get(position).getRating()))
         holder.rating.setRating(Float.valueOf(listData.get(position).getRating()));
         return convertView;
+    }
+
+    private void setColorToOpenNowText(int position, ViewHolder holder) {
+        if(Boolean.valueOf(listData.get(position).getOpenNow())){
+            holder.openNow.setText("Open Now");
+            holder.openNow.setTextColor(Color.GREEN);
+        }
+        else{
+            holder.openNow.setText("Closed");
+            holder.openNow.setTextColor(Color.RED);
+        }
     }
 
     private String getTypes(List<String> googleTypes){
@@ -110,7 +123,7 @@ public class CustomListAdapter extends BaseAdapter {
         TextView typesView;
         TextView reporterNameView;
         RatingBar rating;
-        TextView priceLevel;
+        TextView openNow;
         TextView address;
     }
 }
