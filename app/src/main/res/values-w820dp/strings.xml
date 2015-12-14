@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Chillax</string>
+    <string name="title_activity_main">Chillax</string>
     <string name="launch_heading">Soak in the culture around you!</string>
     <string name="launch_heading2">Explore places based on your interests.</string>
     <string name="launch_discover_button_text">Discover</string>
