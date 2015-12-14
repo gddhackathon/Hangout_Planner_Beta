@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="60dp"
+    android:layout_height="90dp"
     android:orientation="horizontal"
     android:padding="10dp">
 
@@ -10,7 +10,7 @@
         android:src="@drawable/ic_hotel_black_24dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/reporter"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -58,9 +58,9 @@
         android:numStars="5"
         android:isIndicator="true"
         android:paddingBottom="10dp"
-        android:layout_below="@+id/title"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignBottom="@+id/types"
+        android:layout_alignRight="@+id/textViewPricelevel"
+        android:layout_alignEnd="@+id/textViewPricelevel" />
 
     <TextView
         android:id="@+id/textViewPricelevel"
@@ -72,4 +72,15 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/textViewAddress"
+        android:text="Address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#343434"
+        android:textSize="12sp"
+        android:layout_above="@+id/rating"
+        android:layout_alignLeft="@+id/types"
+        android:layout_alignStart="@+id/types" />
 </RelativeLayout>

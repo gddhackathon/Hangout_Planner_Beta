@@ -61,6 +61,8 @@ public class CustomListAdapter extends BaseAdapter {
             holder.reporterNameView = (TextView) convertView.findViewById(R.id.reporter);
             holder.typesView = (TextView) convertView.findViewById(R.id.types);
             holder.rating = (RatingBar) convertView.findViewById(R.id.rating);
+            holder.address = (TextView) convertView.findViewById(R.id.textViewAddress);
+
             LayerDrawable stars = (LayerDrawable) holder.rating.getProgressDrawable();
             stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
 
@@ -80,6 +82,7 @@ public class CustomListAdapter extends BaseAdapter {
         }
         if (bmp !=null)
         holder.imagePlace.setImageBitmap(bmp);
+        holder.address.setText(listData.get(position).getAddress());
         holder.priceLevel.setText(listData.get(position).getOpenNow());
         holder.headlineView.setText(listData.get(position).getName());
         holder.reporterNameView.setText(listData.get(position).getAddress());
@@ -108,5 +111,6 @@ public class CustomListAdapter extends BaseAdapter {
         TextView reporterNameView;
         RatingBar rating;
         TextView priceLevel;
+        TextView address;
     }
 }
