@@ -5,9 +5,18 @@
     tools:context="com.gdd.hangoutplanner.FavouriteDestinationFragments">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView4"
+        android:layout_centerInParent="true"
+        android:alpha="127"
+        android:src="@drawable/under_construction"
+        android:layout_gravity="center_horizontal" />
+    </RelativeLayout>
 </FrameLayout>

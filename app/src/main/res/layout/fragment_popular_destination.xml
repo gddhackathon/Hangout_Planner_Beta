@@ -39,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/addFavourites"
                 android:layout_gravity="right"
+                android:onClick="onClickPopularDestination"
                 android:layout_alignTop="@+id/searchDestAutoCompView"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true" />
@@ -62,6 +63,7 @@
                     card_view:cardCornerRadius="10dp">
                     <ImageView
                         android:src="@drawable/populardestinations_nyc"
+                        android:id="@+id/populardestinations_nyc"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerInside"
@@ -81,6 +83,7 @@
                     card_view:cardCornerRadius="10dp">
                     <ImageView
                         android:src="@drawable/populardestinations_miami"
+                        android:id="@+id/populardestinations_miami"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerInside"
@@ -100,6 +103,7 @@
                     card_view:cardCornerRadius="10dp">
                     <ImageView
                         android:src="@drawable/populardestinations_chicago"
+                        android:id="@+id/populardestinations_chicago"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerInside"
@@ -119,6 +123,7 @@
                     card_view:cardCornerRadius="10dp">
                     <ImageView
                         android:src="@drawable/populardestinations_seattle"
+                        android:id="@+id/populardestinations_seattle"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerInside"
@@ -139,6 +144,7 @@
                     card_view:cardCornerRadius="10dp">
                     <ImageView
                         android:src="@drawable/populardestinations_la"
+                        android:id="@+id/populardestinations_la"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:scaleType="centerInside"

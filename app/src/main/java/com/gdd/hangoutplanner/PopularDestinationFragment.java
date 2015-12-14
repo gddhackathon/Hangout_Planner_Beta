@@ -64,6 +64,58 @@ public class PopularDestinationFragment extends Fragment {
             InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
+
+        //popular Destinations
+        ImageView imageNyc = (ImageView)rootView.findViewById(R.id.populardestinations_nyc);
+        imageNyc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(rootView.getContext(), AddFavouritesActivity.class);
+                intent.putExtra("latLon", "40.7127:-74.0059");
+                intent.putExtra("selectedAddress", "New York City");
+                startActivity(intent);
+            }
+        });
+        ImageView imageChicago = (ImageView)rootView.findViewById(R.id.populardestinations_chicago);
+        imageChicago.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(rootView.getContext(), AddFavouritesActivity.class);
+                intent.putExtra("latLon", "41.8369:-87.6847");
+                intent.putExtra("selectedAddress", "Chicago");
+                startActivity(intent);
+            }
+        });
+        ImageView imageMiami = (ImageView)rootView.findViewById(R.id.populardestinations_miami);
+        imageMiami.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(rootView.getContext(), AddFavouritesActivity.class);
+                intent.putExtra("latLon", "25.7753:-80.2089");
+                intent.putExtra("selectedAddress", "New York City");
+                startActivity(intent);
+            }
+        });
+        ImageView imageSeattle= (ImageView)rootView.findViewById(R.id.populardestinations_seattle);
+        imageSeattle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(rootView.getContext(), AddFavouritesActivity.class);
+                intent.putExtra("latLon", "47.6097:-122.3331");
+                intent.putExtra("selectedAddress", "Seattle");
+                startActivity(intent);
+            }
+        });
+        ImageView imageLA = (ImageView)rootView.findViewById(R.id.populardestinations_la);
+        imageLA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(rootView.getContext(), AddFavouritesActivity.class);
+                intent.putExtra("latLon", "34.0500:-118.2500");
+                intent.putExtra("selectedAddress", "New York City");
+                startActivity(intent);
+            }
+        });
         return rootView;
     }
 
@@ -103,5 +155,6 @@ public class PopularDestinationFragment extends Fragment {
             Toast.makeText(getActivity().getApplicationContext(), latLon, Toast.LENGTH_SHORT).show();
         }
     }
+
 
 }
