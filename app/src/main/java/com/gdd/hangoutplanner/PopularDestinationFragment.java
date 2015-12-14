@@ -2,6 +2,7 @@ package com.gdd.hangoutplanner;
 
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +11,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -44,10 +47,9 @@ public class PopularDestinationFragment extends Fragment {
         addFavourites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(latLon == null){
+                if (latLon == null) {
                     Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_place_error_message, Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     Intent intent = new Intent(rootView.getContext(), AddFavouritesActivity.class);
                     intent.putExtra("latLon", latLon);
                     intent.putExtra("selectedAddress", selectedAddress);
@@ -55,6 +57,13 @@ public class PopularDestinationFragment extends Fragment {
                 }
             }
         });
+
+        // Check if no view has focus:
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
         return rootView;
     }
 
@@ -66,9 +75,9 @@ public class PopularDestinationFragment extends Fragment {
 
             public void onItemClick(AdapterView adapterView, View view, int position, long id) {
                 String str = (String) adapterView.getItemAtPosition(position);
-                String address  = str;
+                String address = str;
                 GeocodingLocation locationAddress = new GeocodingLocation();
-                locationAddress.getAddressFromLocation(address,getActivity().getApplicationContext(), new GeocoderHandler());
+                locationAddress.getAddressFromLocation(address, getActivity().getApplicationContext(), new GeocoderHandler());
                 Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
             }
         });

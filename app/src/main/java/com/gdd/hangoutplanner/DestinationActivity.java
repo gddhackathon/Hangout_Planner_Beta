@@ -17,7 +17,7 @@ import com.gdd.hangoutplanner.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DestinationActivity extends AppCompatActivity {
+public class    DestinationActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TabLayout tabLayout;
@@ -72,6 +72,7 @@ public class DestinationActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new PopularDestinationFragment(), "Popular Destinations");
+        adapter.addFragment(new RecentSearchedDestinationFragment(), "Recent Searched Destinations");
         adapter.addFragment(new FavouriteDestinationFragments(), "Favourite Destinations");
         viewPager.setAdapter(adapter);
     }
