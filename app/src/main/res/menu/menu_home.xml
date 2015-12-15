@@ -6,7 +6,7 @@
 
     <item
         android:id="@+id/action_next"
-        android:icon="@drawable/ic_done_white_24dp"
+        android:icon="@drawable/next"
         android:title="Next"
         app:showAsAction="always"/>
 </menu>
