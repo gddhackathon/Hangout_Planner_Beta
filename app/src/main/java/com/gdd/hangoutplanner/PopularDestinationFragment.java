@@ -136,6 +136,15 @@ public class PopularDestinationFragment extends Fragment {
                 GeocodingLocation locationAddress = new GeocodingLocation();
                 locationAddress.getAddressFromLocation(address, getActivity().getApplicationContext(), new GeocoderHandler());
                 Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
+                if (latLon == null) {
+                    Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_place_error_message, Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
+                    final HangoutPlanner hangoutPlanner = (HangoutPlanner) getActivity().getApplicationContext();
+                    hangoutPlanner.setLatLon(latLon);
+                    hangoutPlanner.setSelectedAddress(selectedAddress);
+                    startActivity(intent);
+                }
             }
         });
     }

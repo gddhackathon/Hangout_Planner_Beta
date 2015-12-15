@@ -30,10 +30,10 @@ public class DestinationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_destination);
         //Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         //Need not have Below
-       /* Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("ChilaX");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
-
+        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
         //Sliding Tabs
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
