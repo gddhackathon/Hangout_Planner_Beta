@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -55,7 +56,10 @@ public class DestinationOverviewActivity extends AppCompatActivity {
         //List to show what is selected
         ListView selectedListView = (ListView) findViewById(R.id.listViewSelectedFav);
         List<String> selectedChecks = hangoutPlanner.getSelectedInteresets();
-        selectedChecks.add("Tourist attractions");
+        if(!selectedChecks.contains("Tourist attractions"))
+        {
+            selectedChecks.add("Tourist attractions");
+        }
         for(String fav :selectedChecks){
             System.out.println("fav = " + fav);
         }
@@ -96,7 +100,8 @@ public class DestinationOverviewActivity extends AppCompatActivity {
                 if(item.equalsIgnoreCase("Tourist attractions")){
                     String googlePlacesURLForTouristAttractions = getURLForTouristAttractions();
                     List<Place> places = DownloadGooglePlacesInfo.makeCall(getURLForTouristAttractions());
-                    intent.putExtra("selectedInterestVsPlaces",(ArrayList)places);
+                    ArrayList<Place> filteredPlaces = filterTravelAgency(places);
+                    intent.putExtra("selectedInterestVsPlaces",filteredPlaces);
                 }
                 else {
                     //intent.putExtra("interestVsPlaces", interestVsPlaces);
@@ -131,6 +136,8 @@ public class DestinationOverviewActivity extends AppCompatActivity {
             imageView.setImageBitmap(bmp);
     }
 
+
+
     private String getWeatherURL(){
         return "http://api.openweathermap.org/data/2.5/find?lat="+getLat()+"&lon="+getLon()+"&cnt=1&units=Imperial&appid=2de143494c0b295cca9337e1e96b00e0&mode=json";
     }
@@ -145,6 +152,15 @@ public class DestinationOverviewActivity extends AppCompatActivity {
         return latLon[1];
     }
 
+    private ArrayList<Place> filterTravelAgency(List<Place> places) {
+        ArrayList<Place> filteredPlaces = new ArrayList<Place>();
+        for(Place place : places){
+            if(!place.getTypes().contains("travel_agency")){
+                filteredPlaces.add(place);
+            }
+        }
+        return filteredPlaces;
+    }
     private String getUrl(String interest) {
         return "https://maps.googleapis.com/maps/api/place/search/json?" + getLatLon() +"&"+getTypes(interest)+"&radius=50000&sensor=true&key=" + GOOGLE_KEY;
     }
@@ -166,18 +182,32 @@ public class DestinationOverviewActivity extends AppCompatActivity {
     }
 
     private String getURLForTouristAttractions() {
-        String url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=tourist attractions in "+getQuery()+"&key="+GOOGLE_KEY;
+        String url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=tourist+attractions+in+"+getQuery()+"&key="+GOOGLE_KEY;
         System.out.println("url = " + url);
-        return "https://maps.googleapis.com/maps/api/place/textsearch/json?query=tourist%20attractions%20in%20New%20York%20City&key=AIzaSyA2pWuAzJ_agDXpISSGDEh1hnk6B7SPMOw";
+        return url;
     }
 
     private String getQuery(){
-        StringBuilder query = new StringBuilder();
         HangoutPlanner hangoutPlanner =  (HangoutPlanner) getApplicationContext();
-        String selectedPlace = hangoutPlanner.getSelectedAddress();
-        query.append(selectedPlace);
-        System.out.println("query = " + query);
-        return query.toString();
+        String selectedPlace = getFormattedAddress(hangoutPlanner.getSelectedAddress());
+        return selectedPlace;
+    }
+
+    private String getFormattedAddress(String selectedAddress){
+        String address = "";
+        List<String> addressList = Arrays.asList(selectedAddress.split(","));
+        System.out.println("addressList = " + addressList);
+        if(1 == addressList.size()){
+            address = addressList.get(0).trim().replace(" ", "+");
+        }
+        else if(2 == addressList.size()){
+            address = addressList.get(0).trim().replace(" ", "+")+"+"+addressList.get(1).trim().replace(" ", "+");
+        }
+        else if(2 > addressList.size()){
+            address = addressList.get(addressList.size()-3).trim().replace(" ", "+")+"+"+addressList.get(addressList.size()-2).trim().replace(" ", "+")
+                    +"+"+addressList.get(addressList.size()-1).trim().replace(" ", "+");
+        }
+        return address;
     }
 }
 
