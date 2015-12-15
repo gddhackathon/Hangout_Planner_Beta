@@ -71,20 +71,10 @@ public class CustomListAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        URL url;
-        Bitmap bmp = null;
-        try {
-            url = new URL(listData.get(position).getIcon());
-             bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-        }
-        catch (Exception e){
-
-        }
-        if (bmp !=null) {
-            holder.imagePlace.setImageBitmap(bmp);
+        if (holder.imagePlace != null) {
+            new ImageDownloaderTask(holder.imagePlace).execute(listData.get(position).getIcon());
         }
         holder.address.setText(listData.get(position).getAddress());
-
         setColorToOpenNowText(position, holder);
         holder.headlineView.setText(listData.get(position).getName());
         holder.reporterNameView.setText(listData.get(position).getAddress());
@@ -114,7 +104,7 @@ public class CustomListAdapter extends BaseAdapter {
                 type.append(" ").append(applicationInterest).append(",");
             }
         }
-        return type.deleteCharAt(type.lastIndexOf(",")).toString();
+        return  type.lastIndexOf(",") == -1 ?  type.toString() :type.deleteCharAt(type.lastIndexOf(",")).toString();
     }
 
     static class ViewHolder {

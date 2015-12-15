@@ -168,7 +168,7 @@ public class DestinationOverviewActivity extends AppCompatActivity {
     private String getURLForTouristAttractions() {
         String url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=tourist attractions in "+getQuery()+"&key="+GOOGLE_KEY;
         System.out.println("url = " + url);
-        return url;
+        return "https://maps.googleapis.com/maps/api/place/textsearch/json?query=tourist%20attractions%20in%20New%20York%20City&key=AIzaSyA2pWuAzJ_agDXpISSGDEh1hnk6B7SPMOw";
     }
 
     private String getQuery(){

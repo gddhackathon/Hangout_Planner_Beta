@@ -16,7 +16,7 @@ public class ConnectionManager {
         urlConnection.setReadTimeout(10000 /* milliseconds */);
         urlConnection.setConnectTimeout(15000 /* milliseconds */);
         urlConnection.setRequestMethod("GET");
-        urlConnection.setDoInput(true);
+        //urlConnection.setDoInput(true);
         // Starts the query
         urlConnection.connect();
         return urlConnection.getInputStream();
