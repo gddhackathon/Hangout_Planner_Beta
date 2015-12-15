@@ -41,8 +41,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+        android:layout_marginTop="5dp"
+        android:dividerHeight="2dp"
+        android:fadingEdge="vertical"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/map" />
+        android:layout_below="@+id/map"
+        android:layout_above="@+id/buttonGetPlaces" />
 
     <Button
         android:layout_width="wrap_content"
@@ -53,6 +57,7 @@
         android:background="@drawable/roundedbutton"
         android:onClick="nextPage"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_alignRight="@+id/map"
         android:layout_alignEnd="@+id/map"
         android:layout_marginBottom="44dp" />
