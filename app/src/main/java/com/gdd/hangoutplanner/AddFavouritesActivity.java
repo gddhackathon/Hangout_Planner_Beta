@@ -11,11 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.gdd.hangoutplanner.R;
@@ -36,7 +39,7 @@ import java.util.Map;
 import model.HangoutPlanner;
 import utils.ExceptionHandler;
 
-public class AddFavouritesActivity extends AppCompatActivity implements OnMapReadyCallback{
+public class AddFavouritesActivity extends AppCompatActivity implements OnMapReadyCallback,View.OnClickListener {
 
     private GoogleMap mMap;
     private String[] latLongs;
@@ -50,7 +53,8 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
     private CheckBox chkfood;
 
     final ArrayList<String> selectedChecks = new ArrayList<String>();
-
+    ListView listView;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,8 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
         toolbar.setTitle("Select your Interests");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
+
         HangoutPlanner hangoutPlanner = (HangoutPlanner) getApplicationContext();
         String latLon = hangoutPlanner.getLatLon();
         String selectedAddress = hangoutPlanner.getSelectedAddress();
@@ -70,24 +76,31 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        addListenersToCheckBoxes();
+
         Button buttonGetPlaces = (Button) findViewById(R.id.buttonGetPlaces);
-        buttonGetPlaces.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = getNextActivityIntent();
-                startActivity(intent);
-            }
-        });
+        listView = (ListView) findViewById(R.id.listInterests);
+        ArrayList<String> interests = new ArrayList<String>();
+        interests.add("bar");interests.add("movies");
+        interests.add("food");interests.add("shopping");
+        interests.add("hotel");interests.add("localmall");
+        adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_multiple_choice, interests);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        listView.setAdapter(adapter);
+        buttonGetPlaces.setOnClickListener(this);
 
     }
+
+    public void onClick(View v) {
+        getSelectChecksAndStartNextActivity();
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_next) {
-            Intent intent = getNextActivityIntent();
-            startActivity(intent);
+            getSelectChecksAndStartNextActivity();
         }
 
         return super.onOptionsItemSelected(item);
@@ -126,87 +139,27 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(address, zoomLevel));
     }
 
-    public void addListenersToCheckBoxes() {
-        chkBar = (CheckBox) findViewById(R.id.checkBar);
-        chkMovies = (CheckBox) findViewById(R.id.checkMovies);
-        chklocalmall = (CheckBox) findViewById(R.id.checkLoclMal);
-        ckhShopping = (CheckBox) findViewById(R.id.checkShopping);
-        chkHotel = (CheckBox) findViewById(R.id.checkHotel);
-        chkfood = (CheckBox) findViewById(R.id.checkFood);
 
-        chkBar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (((CheckBox) v).isChecked()) {
-                    selectedChecks.add("bar");
-                } else {
-                    if (selectedChecks.contains("bar")) {
-                        selectedChecks.remove("bar");
-                    }
-                }
-            }
-        });
-        chkMovies.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (((CheckBox) v).isChecked()) {
-                    selectedChecks.add("movies");
-                }else {
-                    if (selectedChecks.contains("movies")) {
-                        selectedChecks.remove("movies");
-                    }
-                }
-            }
-        });
-        chklocalmall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (((CheckBox) v).isChecked()) {
-                    selectedChecks.add("localmall");
-                }else {
-                    if (selectedChecks.contains("localmall")) {
-                        selectedChecks.remove("localmall");
-                    }
-                }
-            }
-        });
-        ckhShopping.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (((CheckBox) v).isChecked()) {
-                    selectedChecks.add("shopping");
-                }else {
-                    if (selectedChecks.contains("shopping")) {
-                        selectedChecks.remove("shopping");
-                    }
-                }
-            }
-        });
-        chkHotel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (((CheckBox) v).isChecked()) {
-                    selectedChecks.add("hotel");
-                }else {
-                    if (selectedChecks.contains("hotel")) {
-                        selectedChecks.remove("hotel");
-                    }
-                }
-            }
-        });
-        chkfood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (((CheckBox) v).isChecked()) {
-                    selectedChecks.add("food");
-                }else {
-                    if (selectedChecks.contains("food")) {
-                        selectedChecks.remove("food");
-                    }
-                }
-            }
-        });
+    private void getSelectChecksAndStartNextActivity() {
+        selectedChecks.clear();
+        SparseBooleanArray checked = listView.getCheckedItemPositions();
+        ArrayList<String> selectedItems = new ArrayList<String>();
+        for (int i = 0; i < checked.size(); i++) {
+            // Item position in adapter
+            int position = checked.keyAt(i);
+            // Add sport if it is checked i.e.) == TRUE!
+            if (checked.valueAt(i))
+                selectedItems.add(adapter.getItem(position));
+        }
 
+        String[] outputStrArr = new String[selectedItems.size()];
+
+        for (int i = 0; i < selectedItems.size(); i++) {
+            selectedChecks.add(selectedItems.get(i));
+        }
+        Intent intent = getNextActivityIntent();
+        // start the ResultActivity
+        startActivity(intent);
     }
 
 }

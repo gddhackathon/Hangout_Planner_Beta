@@ -27,7 +27,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select your interests"
+        android:text=""
         android:layout_centerVertical="true"
         android:textStyle="bold"
         android:fontFamily="@string/auth_google_play_services_client_google_display_name"
@@ -36,136 +36,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
+    <ListView
+        android:id="@+id/listInterests"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:button="@drawable/ic_local_bar_black_24dp"
-        android:text="Bar"
-        android:id="@+id/checkBox2"
-        android:checked="false"
-        android:layout_marginTop="34dp"
-        android:layout_below="@+id/textView4"
-        android:layout_alignRight="@+id/textView4"
-        android:layout_alignEnd="@+id/textView4" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hotel"
-        android:button="@drawable/ic_hotel_black_24dp"
-        android:id="@+id/checkBox3"
-        android:checked="true"
-        android:layout_below="@+id/checkBox2"
-        android:layout_alignLeft="@+id/checkBox2"
-        android:layout_alignStart="@+id/checkBox2" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Local Mall"
-        android:button="@drawable/ic_local_mall_black_24dp"
-        android:id="@+id/checkBox5"
-        android:checked="false"
-        android:layout_below="@+id/checkHotel"
-        android:layout_toRightOf="@+id/checkHotel"
-        android:layout_toEndOf="@+id/checkHotel" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:button="@drawable/ic_local_movies_black_24dp"
-        android:text="Movies"
-        android:id="@+id/checkBox7"
-        android:checked="false"
-        android:layout_alignTop="@+id/checkMovies"
-        android:layout_toRightOf="@+id/checkShopping"
-        android:layout_toEndOf="@+id/checkShopping" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:button="@drawable/ic_shop_black_24dp"
-        android:text="Shopping"
-        android:id="@+id/checkBox8"
-        android:checked="false"
-        android:layout_marginRight="36dp"
-        android:layout_marginEnd="36dp"
-        android:layout_alignTop="@+id/checkShopping"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:button="@drawable/ic_local_dining_black_24dp"
-        android:text="food"
-        android:id="@+id/checkBox9"
-        android:checked="false"
-        android:layout_alignBottom="@+id/checkLoclMal"
-        android:layout_toRightOf="@+id/checkFood"
-        android:layout_toEndOf="@+id/checkFood" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
-        android:layout_alignTop="@+id/textView4"
-        android:layout_toRightOf="@+id/checkBox7"
-        android:layout_toEndOf="@+id/checkBox7" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkBar"
-        android:checked="false"
-        android:layout_above="@+id/checkBox3"
-        android:layout_toLeftOf="@+id/checkBox2"
-        android:layout_toStartOf="@+id/checkBox2" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkHotel"
-        android:checked="false"
-        android:layout_below="@+id/checkBar"
-        android:layout_alignLeft="@+id/checkBar"
-        android:layout_alignStart="@+id/checkBar" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkLoclMal"
-        android:checked="false"
-        android:layout_below="@+id/checkHotel"
-        android:layout_toLeftOf="@+id/checkBox5"
-        android:layout_toStartOf="@+id/checkBox5" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkMovies"
-        android:checked="false"
-        android:layout_above="@+id/checkBox3"
-        android:layout_toLeftOf="@+id/checkBox7"
-        android:layout_toStartOf="@+id/checkBox7" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkShopping"
-        android:checked="false"
-        android:layout_below="@+id/checkMovies"
-        android:layout_toLeftOf="@+id/checkBox8"
-        android:layout_toStartOf="@+id/checkBox8" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkFood"
-        android:checked="false"
-        android:layout_alignBottom="@+id/checkBox9"
-        android:layout_alignLeft="@+id/checkShopping"
-        android:layout_alignStart="@+id/checkShopping" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/map" />
 
     <Button
         android:layout_width="wrap_content"
