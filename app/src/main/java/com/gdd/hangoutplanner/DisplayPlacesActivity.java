@@ -19,9 +19,13 @@ import android.widget.Toast;
 import com.gdd.hangoutplanner.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import model.HangoutPlanner;
 import model.Place;
 import utils.CustomListAdapter;
 import utils.ExceptionHandler;
@@ -53,8 +57,9 @@ public class DisplayPlacesActivity extends AppCompatActivity {
         ArrayList<Place> selectedInterestVsPlaces = (ArrayList<Place>) getIntent().getSerializableExtra("selectedInterestVsPlaces");
         //List valueList = new ArrayList(interestVsPlaces.values());
         //ArrayList places = (ArrayList)valueList.get(0);
+        ArrayList<Place> sortedPlaces = getSortedPlaces(selectedInterestVsPlaces);
         final ListView lv1 = (ListView) findViewById(R.id.custom_list);
-        lv1.setAdapter(new CustomListAdapter(this, selectedInterestVsPlaces));
+        lv1.setAdapter(new CustomListAdapter(this, sortedPlaces));
         lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -73,6 +78,41 @@ public class DisplayPlacesActivity extends AppCompatActivity {
         mShareIntent.putExtra(Intent.EXTRA_TEXT, "I am Sending a Test Message , Place me Places List Activity Layout");
 
     }
+
+    private ArrayList<Place> getSortedPlaces(ArrayList<Place> selectedInterestVsPlaces) {
+        HangoutPlanner hangoutPlanner = (HangoutPlanner) getApplicationContext();
+        List<String> selectedInteresets = hangoutPlanner.getSelectedInteresets();
+        HashMap<Place, Integer> selectedInterestPlacesInSortedOrder = new HashMap<Place, Integer>();
+        for(Place place :selectedInterestVsPlaces){
+            int currentPlacematchingCount = 1;
+            for(String interest : selectedInteresets){
+                if(place.getTypes().contains(interest)){
+                    currentPlacematchingCount++;
+                }
+            }
+            selectedInterestPlacesInSortedOrder.put(place, currentPlacematchingCount);
+        }
+        return sortPlacesInOrder(selectedInterestPlacesInSortedOrder);
+    }
+
+    private ArrayList<Place> sortPlacesInOrder(HashMap<Place, Integer> selectedInterestPlacesInSortedOrder){
+        List<Map.Entry<Place, Integer>> list = new ArrayList<Map.Entry<Place, Integer>>(selectedInterestPlacesInSortedOrder.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<Place, Integer>>() {
+            public int compare(Map.Entry<Place, Integer> o1, Map.Entry<Place, Integer> o2) {
+                return (o2.getValue()).compareTo(o1.getValue());
+            }
+        });
+        ArrayList<Place> places = new ArrayList<Place>();
+        for(Map.Entry<Place, Integer> entry:list){
+            places.add(entry.getKey());
+        }
+        System.out.println("sorted places");
+        for(Place place :places){
+            System.out.println("place = " + place.toString());
+        }
+        return places;
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
