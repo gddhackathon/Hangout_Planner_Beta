@@ -16,4 +16,5 @@
     <string name="title_activity_add_favourites">Add Favourites</string>
     <string name="title_activity_destination_overview">DestinationOverviewActivity</string>
     <string name="title_activity_display_places">DisplayPlacesActivity</string>
+    <string name="title_activity_place_details">PlaceDetailsActivity</string>
 </resources>

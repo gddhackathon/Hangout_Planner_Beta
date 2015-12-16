@@ -32,8 +32,7 @@ import utils.ExceptionHandler;
 
 public class DisplayPlacesActivity extends AppCompatActivity {
 
-    private ShareActionProvider share=null;
-    private Intent mShareIntent;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,16 +65,11 @@ public class DisplayPlacesActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Object o = lv1.getItemAtPosition(position);
                 Place newsData = (Place) o;
-                Toast.makeText(getApplication(), "Selected :" + " " + newsData.getName(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getApplication(), PlaceDetailsActivity.class);
+                intent.putExtra("destination" , newsData);
+                startActivity(intent);
             }
         });
-
-
-        //For Sharing
-        mShareIntent = new Intent();
-        mShareIntent.setAction(Intent.ACTION_SEND);
-        mShareIntent.setType("text/plain");
-        mShareIntent.putExtra(Intent.EXTRA_TEXT, "I am Sending a Test Message , Place me Places List Activity Layout");
 
     }
 
@@ -114,15 +108,5 @@ public class DisplayPlacesActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_places, menu);
-        MenuItem item=menu.findItem(R.id.share);
-        share=(ShareActionProvider) MenuItemCompat.getActionProvider(item);
-        if (share != null) {
-            share.setShareIntent(mShareIntent);
-        }
-        return true;
-    }
 
 }

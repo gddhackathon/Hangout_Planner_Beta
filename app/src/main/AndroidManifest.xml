@@ -68,6 +68,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.gdd.hangoutplanner.DestinationOverviewActivity" />
         </activity>
+        <activity
+            android:name=".PlaceDetailsActivity"
+            android:label="@string/title_activity_place_details"
+            android:parentActivityName=".DisplayPlacesActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.gdd.hangoutplanner.DisplayPlacesActivity" />
+        </activity>
     </application>
 
 </manifest>
