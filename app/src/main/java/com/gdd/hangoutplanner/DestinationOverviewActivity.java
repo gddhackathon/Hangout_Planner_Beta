@@ -73,22 +73,6 @@ public class DestinationOverviewActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
         Weather weather = DownloadWeatherInfo.makeCall(tempURL);
         System.out.println("icon) = " + weather.getIcon());
-        final HashMap<String,List<Place>>  interestVsPlaces = new HashMap<String,List<Place>>();
-        for(String interset :selectedChecks) {
-            String googlePlacesURL = getUrl(interset);
-            System.out.println(googlePlacesURL);
-            List<Place> places = DownloadGooglePlacesInfo.makeCall(googlePlacesURL);
-            interestVsPlaces.put(interset, places);
-        }
-
-        for (Map.Entry<String, List<Place>> places : interestVsPlaces.entrySet()) {
-            String interest = places.getKey();
-            List<Place> values = places.getValue();
-            System.out.println("interest" + interest);
-            for(Place place :values){
-                System.out.println("place. = " + place.getName());
-            }
-        }
 
         //On Click of any list item
         selectedListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -97,15 +81,17 @@ public class DestinationOverviewActivity extends AppCompatActivity {
                                     long id) {
                 String item = ((TextView) view).getText().toString();
                 Intent intent = new Intent(getApplication(), DisplayPlacesActivity.class);
+                if(!"Tourist attractions".equalsIgnoreCase(item)) {
+                    String googlePlacesURL = getUrl(item);
+                    System.out.println(googlePlacesURL);
+                    List<Place> places = DownloadGooglePlacesInfo.makeCall(googlePlacesURL);
+                    intent.putExtra("selectedInterestVsPlaces", (ArrayList)places);
+                }
                 if(item.equalsIgnoreCase("Tourist attractions")){
                     String googlePlacesURLForTouristAttractions = getURLForTouristAttractions();
-                    List<Place> places = DownloadGooglePlacesInfo.makeCall(getURLForTouristAttractions());
+                    List<Place> places = DownloadGooglePlacesInfo.makeCall(googlePlacesURLForTouristAttractions);
                     ArrayList<Place> filteredPlaces = filterTravelAgency(places);
                     intent.putExtra("selectedInterestVsPlaces",filteredPlaces);
-                }
-                else {
-                    //intent.putExtra("interestVsPlaces", interestVsPlaces);
-                    intent.putExtra("selectedInterestVsPlaces",(ArrayList)interestVsPlaces.get(item));
                 }
                 startActivity(intent);
             }
@@ -194,20 +180,20 @@ public class DestinationOverviewActivity extends AppCompatActivity {
     }
 
     private String getFormattedAddress(String selectedAddress){
-        String address = "";
+        StringBuilder address = new StringBuilder();
         List<String> addressList = Arrays.asList(selectedAddress.split(","));
         System.out.println("addressList = " + addressList);
-        if(1 == addressList.size()){
-            address = addressList.get(0).trim().replace(" ", "+");
+        if(addressList.size() == 1){
+            address.append(addressList.get(0).trim().replace(" ", "+"));
         }
-        else if(2 == addressList.size()){
-            address = addressList.get(0).trim().replace(" ", "+")+"+"+addressList.get(1).trim().replace(" ", "+");
+        else if(addressList.size() == 2){
+            address.append(addressList.get(0).trim().replace(" ", "+")+"+"+addressList.get(1).trim().replace(" ", "+"));
         }
-        else if(2 > addressList.size()){
-            address = addressList.get(addressList.size()-3).trim().replace(" ", "+")+"+"+addressList.get(addressList.size()-2).trim().replace(" ", "+")
-                    +"+"+addressList.get(addressList.size()-1).trim().replace(" ", "+");
+        else if(addressList.size() > 2){
+            address.append(addressList.get(addressList.size()-3).trim().replace(" ", "+")+"+"+addressList.get(addressList.size()-2).trim().replace(" ", "+")
+                    /*+"+"+addressList.get(addressList.size()-1).trim().replace(" ", "+")*/);
         }
-        return address;
+        return address.toString();
     }
 }
 

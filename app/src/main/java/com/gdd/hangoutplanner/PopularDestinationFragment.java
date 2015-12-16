@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.gdd.hangoutplanner.R;
 
 import model.HangoutPlanner;
+import utils.CurrentLocationProvider;
 import utils.GeocodingLocation;
 import utils.GooglePlacesUtil;
 
@@ -51,7 +52,13 @@ public class PopularDestinationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (latLon == null) {
-                    Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_place_error_message, Toast.LENGTH_SHORT).show();
+                    CurrentLocationProvider currentLocationProvider = new CurrentLocationProvider(getActivity().getApplicationContext());
+                    currentLocationProvider.getCurrentLocation();
+                    String latLon = hangoutPlanner.getLatLon();
+                    String currentAddress = hangoutPlanner.getSelectedAddress();
+                    Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_place_error_message+latLon+currentAddress, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
+                    startActivity(intent);
                 } else {
                     Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
                     final HangoutPlanner hangoutPlanner = (HangoutPlanner) getActivity().getApplicationContext();
@@ -134,7 +141,7 @@ public class PopularDestinationFragment extends Fragment {
                 String str = (String) adapterView.getItemAtPosition(position);
                 String address = str;
                 GeocodingLocation locationAddress = new GeocodingLocation();
-                locationAddress.getAddressFromLocation(address, getActivity().getApplicationContext(), new GeocoderHandler());
+                locationAddress.getLocationFromAddress(address, getActivity().getApplicationContext(), new GeocoderHandler());
                 Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
                 if (latLon == null) {
                     Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_place_error_message, Toast.LENGTH_SHORT).show();

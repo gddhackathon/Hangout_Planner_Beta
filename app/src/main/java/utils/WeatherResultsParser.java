@@ -86,9 +86,9 @@ public class WeatherResultsParser {
 
     private static void getMain(JSONObject main, Weather weather){
         Temperature temperature = new Temperature();
-        temperature.setCurrent(main.optString("temp"));
-        temperature.setMin(main.optString("temp_min"));
-        temperature.setMin(main.optString("temp_max"));
+        temperature.setCurrent(trimTemp(main.optString("temp")));
+        temperature.setMin(trimTemp(main.optString("temp_min")));
+        temperature.setMax(trimTemp(main.optString("temp_max")));
         temperature.setUnit("fahrenheit");
         Humidity humidity = new Humidity();
         humidity.setValue(main.optString("humidity"));
@@ -99,6 +99,15 @@ public class WeatherResultsParser {
         weather.setHumidity(humidity);
         weather.setPressure(pressure);
         weather.setTemperature(temperature);
+    }
+
+    private static String trimTemp(String temp){
+        Integer trimmedTemp = null;
+        if(temp != null && !temp.isEmpty()){
+            Double d = Double.parseDouble(temp);
+            trimmedTemp = d.intValue();
+        }
+       return null !=trimmedTemp ? trimmedTemp.toString() : "";
     }
 
     private static void setWeather(JSONArray types, Weather weather){
