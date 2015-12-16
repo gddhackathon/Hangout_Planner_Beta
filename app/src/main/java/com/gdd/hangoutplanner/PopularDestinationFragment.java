@@ -157,7 +157,7 @@ public class PopularDestinationFragment extends Fragment {
                     hangoutPlanner.setLatLon(latLon);
                     hangoutPlanner.setSelectedAddress(selectedAddress);
                    // RecentSearchDbHelper recentSearchDbHelper = new RecentSearchDbHelper(getActivity());
-                    startActivity(intent);
+                  //  startActivity(intent);
                 }
             }
         });
