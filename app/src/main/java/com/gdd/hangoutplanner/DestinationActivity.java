@@ -31,9 +31,9 @@ public class DestinationActivity extends AppCompatActivity {
         //Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         //Need not have Below
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("ChilaX");
+        toolbar.setTitle("Chillax");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setIcon(R.mipmap.ic_launcher);
+        getSupportActionBar().setIcon(R.drawable.top_icon);
         //Sliding Tabs
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
