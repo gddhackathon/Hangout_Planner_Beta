@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.gdd.hangoutplanner.R;
 
+import db.RecentSearchDbHelper;
 import model.HangoutPlanner;
 import utils.CurrentLocationProvider;
 import utils.GeocodingLocation;
@@ -64,6 +65,10 @@ public class PopularDestinationFragment extends Fragment {
                     final HangoutPlanner hangoutPlanner = (HangoutPlanner) getActivity().getApplicationContext();
                     hangoutPlanner.setLatLon(latLon);
                     hangoutPlanner.setSelectedAddress(selectedAddress);
+                    RecentSearchDbHelper recentSearchDbHelper = new RecentSearchDbHelper(getContext());
+                    if(!recentSearchDbHelper.getResentSearches().contains(selectedAddress)){
+                        recentSearchDbHelper.insertResentSearch(selectedAddress,latLon);
+                    }
                     startActivity(intent);
                 }
             }
@@ -130,6 +135,7 @@ public class PopularDestinationFragment extends Fragment {
         return rootView;
     }
 
+
     private void autoCompletePlaces(View rootView) {
         AutoCompleteTextView autoCompView = (AutoCompleteTextView) rootView.findViewById(R.id.searchDestAutoCompView);
         System.out.println("On text change" + autoCompView.getText().toString());
@@ -150,6 +156,7 @@ public class PopularDestinationFragment extends Fragment {
                     final HangoutPlanner hangoutPlanner = (HangoutPlanner) getActivity().getApplicationContext();
                     hangoutPlanner.setLatLon(latLon);
                     hangoutPlanner.setSelectedAddress(selectedAddress);
+                   // RecentSearchDbHelper recentSearchDbHelper = new RecentSearchDbHelper(getActivity());
                     startActivity(intent);
                 }
             }
