@@ -8,12 +8,29 @@
     tools:context="com.gdd.hangoutplanner.DestinationOverviewActivity"
     tools:showIn="@layout/activity_destination_overview">
 
-
+<RelativeLayout
+    android:background="@color/colorAccent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/relativeLayout">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:src="@drawable/weather_gradient_2"
+        android:id="@+id/imageView2" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="CHICAGO"
+        android:fontFamily="@string/common_android_wear_update_title"
+        android:textSize="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/white"
         android:textStyle="bold"
         android:id="@+id/textViewTitle"
         android:layout_alignParentTop="true"
@@ -33,25 +50,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="45"
-        android:layout_alignTop="@+id/view2"
-        android:layout_alignRight="@+id/textViewMin"
-        android:layout_alignEnd="@+id/textViewMin" />
+        android:textSize="50dp"
+        android:textColor="@color/white"
+        android:layout_below="@+id/textViewMax"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:src="@drawable/ic_hotel_black_24dp"
-        android:layout_below="@+id/view2"
-        android:layout_toLeftOf="@+id/textViewTitle"
-        android:layout_toStartOf="@+id/textViewTitle" />
+        android:layout_alignTop="@+id/textViewMax"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/textViewMax"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Max : 46"
-        android:layout_alignBottom="@+id/icon"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:layout_below="@+id/textViewTitle"
         android:layout_alignRight="@+id/textViewMin"
         android:layout_alignEnd="@+id/textViewMin" />
 
@@ -60,29 +81,33 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Min : 30"
-        android:layout_below="@+id/textViewMax"
-        android:layout_alignRight="@+id/textViewhumidity"
-        android:layout_alignEnd="@+id/textViewhumidity" />
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:layout_alignBottom="@+id/icon"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/textViewCondition"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cloudy"
+        android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/icon"
-        android:layout_alignRight="@+id/icon"
-        android:layout_alignEnd="@+id/icon"
-        android:layout_marginTop="22dp" />
+        android:layout_below="@+id/textViewMin"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="27dp" />
 
     <TextView
         android:id="@+id/textViewhumidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Humidity : 50"
-        android:layout_below="@+id/textViewMin"
-        android:layout_toRightOf="@+id/textView5"
-        android:layout_toEndOf="@+id/textView5" />
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:layout_alignTop="@+id/textViewCondition"
+        android:layout_centerHorizontal="true" />
+
 
     <View
         android:layout_width="fill_parent"
@@ -91,7 +116,9 @@
         android:id="@+id/view3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/listViewSelectedFav" />
+         />
+
+</RelativeLayout>
 
     <ListView
         android:layout_width="wrap_content"
@@ -99,17 +126,7 @@
         android:id="@+id/listViewSelectedFav"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView5" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Your Interests"
-        android:id="@+id/textView5"
-        android:layout_below="@+id/textViewhumidity"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="21dp" />
+        android:layout_below="@+id/relativeLayout" />
 
 
 </RelativeLayout>

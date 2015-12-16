@@ -56,11 +56,9 @@
         android:id="@+id/buttonGetPlaces"
         android:background="@drawable/roundedbutton"
         android:onClick="nextPage"
+        android:layout_marginBottom="37dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignRight="@+id/map"
-        android:layout_alignEnd="@+id/map"
-        android:layout_marginBottom="44dp" />
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

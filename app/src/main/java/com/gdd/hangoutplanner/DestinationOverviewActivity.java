@@ -30,11 +30,14 @@ import java.util.Set;
 import java.util.TreeMap;
 
 import model.HangoutPlanner;
+import model.Interest;
 import model.Place;
 import model.Weather;
+import utils.CustomListAdapter;
 import utils.DownloadGooglePlacesInfo;
 import utils.DownloadWeatherInfo;
 import utils.ExceptionHandler;
+import utils.InterestListAdapter;
 
 public class DestinationOverviewActivity extends AppCompatActivity {
 
@@ -47,6 +50,7 @@ public class DestinationOverviewActivity extends AppCompatActivity {
         //Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.activity_destination_overview);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Destination Weather and Interests");
         setSupportActionBar(toolbar);
         HangoutPlanner hangoutPlanner = (HangoutPlanner) getApplicationContext();
         System.out.println("hangoutPlanner = " + hangoutPlanner.getSelectedInteresets().toArray().toString());
@@ -54,7 +58,7 @@ public class DestinationOverviewActivity extends AppCompatActivity {
         addressSelectedTextView.setText(hangoutPlanner.getSelectedAddress());
 
         //List to show what is selected
-        ListView selectedListView = (ListView) findViewById(R.id.listViewSelectedFav);
+        final ListView selectedListView = (ListView) findViewById(R.id.listViewSelectedFav);
         List<String> selectedChecks = hangoutPlanner.getSelectedInteresets();
         if(!selectedChecks.contains("Tourist attractions"))
         {
@@ -63,11 +67,20 @@ public class DestinationOverviewActivity extends AppCompatActivity {
         for(String fav :selectedChecks){
             System.out.println("fav = " + fav);
         }
-        ArrayAdapter<String> itemsAdapter =
+        /*ArrayAdapter<String> itemsAdapter =
                 new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,selectedChecks);
-        selectedListView.setAdapter(itemsAdapter);
+        selectedListView.setAdapter(itemsAdapter);*/
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        ArrayList<Interest> selectedIntArrayList= new ArrayList<Interest>();
+        for(String name : selectedChecks){
+            Interest interest = new Interest();
+            interest.setName(name);
+            selectedIntArrayList.add(interest);
+        }
+        selectedListView.setAdapter(new InterestListAdapter(this, selectedIntArrayList));
+
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String tempURL = getWeatherURL();
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -79,7 +92,9 @@ public class DestinationOverviewActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
-                String item = ((TextView) view).getText().toString();
+                Object o = selectedListView.getItemAtPosition(position);
+                Interest newsData = (Interest) o;
+                String item = newsData.getName();
                 Intent intent = new Intent(getApplication(), DisplayPlacesActivity.class);
                 if(!"Tourist attractions".equalsIgnoreCase(item)) {
                     String googlePlacesURL = getUrl(item);
@@ -99,15 +114,15 @@ public class DestinationOverviewActivity extends AppCompatActivity {
 
         //Loading Weathe Details
         TextView textViewTemp = (TextView) findViewById(R.id.textViewTemp);
-        textViewTemp.setText("Right Now " + weather.getTemperature().getCurrent());
+        textViewTemp.setText(weather.getTemperature().getCurrent() + "\u2109");
         TextView textViewMax = (TextView) findViewById(R.id.textViewMax);
-        textViewMax.setText("Max "+weather.getTemperature().getMax());
+        textViewMax.setText("Max        "+weather.getTemperature().getMax() +  "\u2109");
         TextView textViewMin = (TextView) findViewById(R.id.textViewMin);
-        textViewMin.setText("Min "+weather.getTemperature().getMin());
+        textViewMin.setText("Min        "+weather.getTemperature().getMin()+  "\u2109")  ;
         TextView textViewCondition = (TextView) findViewById(R.id.textViewCondition);
         textViewCondition.setText(weather.getDescription());
         TextView textViewhumidity = (TextView) findViewById(R.id.textViewhumidity);
-        textViewhumidity.setText("Humidity"+weather.getHumidity().getValue());
+        textViewhumidity.setText("Humidity   "+weather.getHumidity().getValue());
         ImageView imageView = (ImageView) findViewById(R.id.icon);
         URL url;
         Bitmap bmp = null;
