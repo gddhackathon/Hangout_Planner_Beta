@@ -71,7 +71,7 @@ public class WeatherResultsParser {
     private static void setGeometry(JSONObject geometry, Weather weather){
         CoOrdinate coOrdinate = new CoOrdinate();
         coOrdinate.setLat(geometry.optString("lat"));
-        coOrdinate.setLat(geometry.optString("lng"));
+        coOrdinate.setLon(geometry.optString("lng"));
         weather.getCity().setCoOrdinate(coOrdinate);
     }
 

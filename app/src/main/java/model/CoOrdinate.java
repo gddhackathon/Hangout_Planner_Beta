@@ -11,7 +11,7 @@ public class CoOrdinate  implements Serializable {
 
     }
 
-    public CoOrdinate(String lon, String lat) {
+    public CoOrdinate(String lat, String lon) {
         this.lon = lon;
         this.lat = lat;
     }
