@@ -26,11 +26,11 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="bottom|end"
-        app:elevation="@dimen/activity_horizontal_margin"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_menu_directions" />
+        android:elevation="20dp"
+        android:src="@drawable/ic_directions_white_24dp" />
 
 </android.support.design.widget.CoordinatorLayout>
