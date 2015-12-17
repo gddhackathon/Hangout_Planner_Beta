@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <!-- Single ListItem -->
 
@@ -10,8 +12,13 @@
     <TextView android:id="@+id/address"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/text_color_default"
+        android:text="temp address, temp state, temp count"
         android:padding="10dip"
         android:textSize="16dip"
-        android:textStyle="bold"/>
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:layout_weight="0.09" />
 
 </LinearLayout>
