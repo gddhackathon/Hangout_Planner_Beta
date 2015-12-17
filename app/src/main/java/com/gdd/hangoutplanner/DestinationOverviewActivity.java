@@ -61,7 +61,7 @@ public class DestinationOverviewActivity extends AppCompatActivity {
         //List to show what is selected
         final ListView selectedListView = (ListView) findViewById(R.id.listViewSelectedFav);
         List<String> selectedChecks = hangoutPlanner.getSelectedInteresets();
-        if(!selectedChecks.contains("Tourist attractions"))
+        if((null == selectedChecks || selectedChecks.isEmpty()))// || !selectedChecks.contains("tourist attractions"))
         {
             selectedChecks.add("Tourist attractions");
         }

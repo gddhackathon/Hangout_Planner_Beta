@@ -6,7 +6,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.os.AsyncTask;
+import android.util.Log;
+import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +21,9 @@ import android.widget.TextView;
 
 import com.gdd.hangoutplanner.R;
 
+import java.io.InputStream;
+import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,8 +37,19 @@ import model.Place;
 public class CustomListAdapter extends BaseAdapter {
     private ArrayList<Place> listData;
     private LayoutInflater layoutInflater;
+    private LruCache<String, Bitmap> mMemoryCache;
+    final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+    final int cacheSize = maxMemory / 8;
 
     public CustomListAdapter(Context aContext, ArrayList<Place> listData) {
+        if(null == mMemoryCache){
+            mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
+                @Override
+                protected int sizeOf(String key, Bitmap bitmap) {
+                    return bitmap.getByteCount() / 1024;
+                }
+            };
+        }
         this.listData = listData;
         layoutInflater = LayoutInflater.from(aContext);
     }
@@ -72,7 +90,16 @@ public class CustomListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         if (holder.imagePlace != null) {
-            new ImageDownloaderTask(holder.imagePlace).execute(listData.get(position).getIcon());
+            String imageURL = listData.get(position).getIcon();
+            ImageDownloaderTask imageDownloaderTask = new ImageDownloaderTask(holder.imagePlace,mMemoryCache);
+            Bitmap bitmap = getBitmapFromMemCache(imageURL);
+            if(null != bitmap){
+                System.out.println("Loading from cache");
+                holder.imagePlace.setImageBitmap(bitmap);
+            }
+            else {
+                imageDownloaderTask.execute(imageURL);
+            }
         }
         holder.address.setText(listData.get(position).getAddress());
         setColorToOpenNowText(position, holder);
@@ -82,6 +109,10 @@ public class CustomListAdapter extends BaseAdapter {
         if( null !=(listData.get(position).getRating()))
         holder.rating.setRating(Float.valueOf(listData.get(position).getRating()));
         return convertView;
+    }
+
+    private Bitmap getBitmapFromMemCache(String key) {
+        return mMemoryCache.get(key);
     }
 
     private void setColorToOpenNowText(int position, ViewHolder holder) {
@@ -116,4 +147,5 @@ public class CustomListAdapter extends BaseAdapter {
         TextView openNow;
         TextView address;
     }
+
 }

@@ -74,7 +74,7 @@ public class HangoutPlanner extends Application {
         googleTypeMapping.put("Spa", "spa");
         googleTypeMapping.put("Aquarium", "aquarium");
         googleTypeMapping.put("zoo", "zoo");
-        googleTypeMapping.put("Tourist attractions", "tourist attractions");
+        googleTypeMapping.put("Tourist attractions", "Tourist attractions");
         return googleTypeMapping;
     }
 
