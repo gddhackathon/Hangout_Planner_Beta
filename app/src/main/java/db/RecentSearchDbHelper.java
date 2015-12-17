@@ -46,6 +46,13 @@ public class RecentSearchDbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void clearHistory() {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues contactValues = new ContentValues();
+        db.execSQL("delete from " + RecentSearchContract.TABLE_NAME);
+        db.close();
+    }
+
     public ArrayList<RecentSearch> getResentSearches() {
         ArrayList<RecentSearch> recentSearches = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();

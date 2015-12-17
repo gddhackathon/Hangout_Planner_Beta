@@ -16,6 +16,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -46,7 +47,7 @@ public class RecentSearchedDestinationFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragmet_recent_searched_destination, container, false);
-        RecentSearchDbHelper recentSearchDbHelper = new RecentSearchDbHelper(getContext());
+        final RecentSearchDbHelper recentSearchDbHelper = new RecentSearchDbHelper(getContext());
         recentSearches = recentSearchDbHelper.getResentSearches();
         ArrayList<String> searches = new ArrayList<>();
         for(RecentSearch recentSearch :recentSearches){
@@ -72,6 +73,17 @@ public class RecentSearchedDestinationFragment extends Fragment{
                 startActivity(intent);
             }
         });
+
+        Button button = (Button) rootView.findViewById(R.id.buttonClear);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recentSearchDbHelper.clearHistory();
+                getActivity().finish();
+                startActivity(getActivity().getIntent());
+            }
+        });
+
         return rootView;
     }
 }
