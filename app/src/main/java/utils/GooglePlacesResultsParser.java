@@ -14,6 +14,7 @@ import java.util.List;
 
 import model.CoOrdinate;
 import model.Geometry;
+import model.Photo;
 import model.Place;
 
 /**
@@ -21,7 +22,7 @@ import model.Place;
  */
 public class GooglePlacesResultsParser {
 
-    public static List<Place> parseGoogleParse(final String response) {
+    public static List<Place> parseGooglePlaceSearchResults(final String response) {
 
         List<Place> places = new ArrayList<Place>();
 
@@ -73,9 +74,73 @@ public class GooglePlacesResultsParser {
         return places;
     }
 
+    public static Place parseGooglePlaceDetailsResults(final String response) {
+
+        Place place = new  Place();
+
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+
+            if (jsonObject.has("result")) {
+
+                JSONObject result = jsonObject.getJSONObject("result");
+                    if (result.has("formatted_address")) {
+                        place.setFormattedAddress(result.optString("formatted_address"));
+                    }
+                    if (result.has("formatted_phone_number")) {
+                        place.setFormattedPhoneNumber(result.optString("formatted_phone_number"));
+                    }
+                    if (result.has("international_phone_number")) {
+                        place.setInternationalPhoneNumber(result.optString("international_phone_number"));
+                    }
+                    if (result.has("name")) {
+                        place.setName(result.optString("name"));
+                    }
+                    if(result.has("opening_hours")){
+                        JSONObject openingHours = result.getJSONObject("opening_hours");
+                        place.setOpenNow(getOpenNow(openingHours));
+                        place.setOpenWhen(getWeekdayText(openingHours));
+                    }
+                    if (result.has("place_id")) {
+                        place.setPlace_id(result.optString("place_id"));
+                    }
+                    if (result.has("geometry")) {
+                        JSONObject geometry = result.getJSONObject("geometry");
+                        place.setGeometry(getGeometry(geometry));
+                    }
+                    if (result.has("photos")) {
+                        JSONArray types = result.getJSONArray("photos");
+                        place.setPhotos(getPhotos(types));
+                    }
+                    if (result.has("icon")) {
+                        place.setIcon(result.optString("icon"));
+                    }
+                    if (result.has("rating")) {
+                        place.setRating(result.optString("rating"));
+                    }
+                    if (result.has("vicinity")) {
+                        place.setAddress(result.optString("vicinity"));
+                    }
+                    if (result.has("types")) {
+                        JSONArray types = result.getJSONArray("types");
+                        place.setTypes(getTypes(types));
+                    }
+                    if (result.has("url")) {
+                        place.setPlaceURL(result.optString("url"));
+                    }
+                    if (result.has("website")) {
+                        place.setPlaceWebSite(result.optString("website"));
+                    }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return place;
+        }
+        return place;
+    }
+
     private static Geometry getGeometry(JSONObject geometry){
         CoOrdinate coOrdinate = null;
-        Geometry geometry1 = null;
         if(geometry.has("location")){
             try {
                 String lat = geometry.getJSONObject("location").optString("lat");
@@ -88,12 +153,42 @@ public class GooglePlacesResultsParser {
         return new Geometry(coOrdinate);
     }
 
+    private static List<Photo> getPhotos(JSONArray types){
+        List<Photo> photos = new ArrayList<>();
+        for(int i = 0; i < types.length(); i++){
+            Photo photo = new Photo();
+            try {
+                photo.setHeight(types.getJSONObject(i).getString("height"));
+                photo.setWidth(types.getJSONObject(i).getString("width"));
+                photo.setPhotoReference(types.getJSONObject(i).getString("photo_reference"));
+                photos.add(photo);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return photos;
+    }
+
     private static String getOpenNow(JSONObject openingHours){
         String openNow = "No Data";
         if(openingHours.has("open_now")){
                 openNow = openingHours.optString("open_now");
         }
         return openNow;
+    }
+
+    private static List<String> getWeekdayText(JSONObject openingHours){
+        List<String> openWhen = new ArrayList<>();
+        try {
+            if (openingHours.has("weekday_text")) {
+                JSONArray types = openingHours.getJSONArray("weekday_text");
+                openWhen = getTypes(types);
+            }
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return openWhen;
     }
 
     private static List<String> getTypes(JSONArray types){

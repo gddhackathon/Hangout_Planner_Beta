@@ -2,6 +2,7 @@ package com.gdd.hangoutplanner;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
@@ -28,10 +29,13 @@ import java.util.Map;
 import model.HangoutPlanner;
 import model.Place;
 import utils.CustomListAdapter;
+import utils.DownloadGooglePlacesInfo;
 import utils.ExceptionHandler;
 
 public class DisplayPlacesActivity extends AppCompatActivity {
 
+    //final String GOOGLE_KEY = "AIzaSyDURS72iPBGDLrvYRoqqivse3zIiqvbVnU";
+    final String GOOGLE_KEY = "AIzaSyD7KfyVhXLs5sKtRPMDt1uCKW9vq3LPTM8";
 
 
     @Override
@@ -65,9 +69,13 @@ public class DisplayPlacesActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Object o = lv1.getItemAtPosition(position);
                 Place newsData = (Place) o;
+                StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+                StrictMode.setThreadPolicy(policy);
+                String googlePlacesDetailsURL = getUrl(newsData.getPlace_id());
+                Place place = DownloadGooglePlacesInfo.makeCallForPlaceDetails(googlePlacesDetailsURL);
                 Intent intent = new Intent(getApplication(), PlaceDetailsActivity.class);
                 intent.putExtra("selectedInterestVsPlaces", (ArrayList)selectedInterestVsPlaces);
-                intent.putExtra("destination" , newsData);
+                intent.putExtra("destination" , place);
                 startActivity(intent);
             }
         });
@@ -108,6 +116,10 @@ public class DisplayPlacesActivity extends AppCompatActivity {
         return places;
     }
 
-
+    private String getUrl(String placeId) {
+        String placeDetailsURL = "https://maps.googleapis.com/maps/api/place/details/json?placeid="+placeId+"&key=" + GOOGLE_KEY;
+        System.out.println("placeDetailsURL = " + placeDetailsURL);
+        return placeDetailsURL;
+    }
 
 }

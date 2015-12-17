@@ -17,6 +17,15 @@ public class Place implements Comparable, Serializable {
     private String priceLevel;
     private String openNow;
     private List<String> types;
+    private String formattedAddress;
+    private String formattedPhoneNumber;
+    private String internationalPhoneNumber;
+    private List<String> openWhen;
+    private List<Photo> photos;
+    private List<Review> reviews;
+    private String placeURL;
+    private String placeWebSite;
+
 
     public int compareTo(Object obj){
         Place place=(Place)obj;
@@ -50,19 +59,6 @@ public class Place implements Comparable, Serializable {
     public Place(){
 
     }
-    public Place(Geometry geometry, String icon, String name, String place_id, String rating, String address
-                    ,String priceLevel, String openNow, List<String> types) {
-        this.geometry = geometry;
-        this.icon = icon;
-        this.name = name;
-        this.place_id = place_id;
-        this.rating = rating;
-        this.address = address;
-        this.priceLevel = priceLevel;
-        this.openNow = openNow;
-        this.types = types;
-    }
-
 
     public Geometry getGeometry() {
         return geometry;
@@ -134,5 +130,69 @@ public class Place implements Comparable, Serializable {
 
     public void setTypes(List<String> types) {
         this.types = types;
+    }
+
+    public String getFormattedAddress() {
+        return formattedAddress;
+    }
+
+    public void setFormattedAddress(String formattedAddress) {
+        this.formattedAddress = formattedAddress;
+    }
+
+    public String getFormattedPhoneNumber() {
+        return formattedPhoneNumber;
+    }
+
+    public void setFormattedPhoneNumber(String formattedPhoneNumber) {
+        this.formattedPhoneNumber = formattedPhoneNumber;
+    }
+
+    public String getInternationalPhoneNumber() {
+        return internationalPhoneNumber;
+    }
+
+    public void setInternationalPhoneNumber(String internationalPhoneNumber) {
+        this.internationalPhoneNumber = internationalPhoneNumber;
+    }
+
+    public List<String> getOpenWhen() {
+        return openWhen;
+    }
+
+    public void setOpenWhen(List<String> openWhen) {
+        this.openWhen = openWhen;
+    }
+
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public String getPlaceURL() {
+        return placeURL;
+    }
+
+    public void setPlaceURL(String placeURL) {
+        this.placeURL = placeURL;
+    }
+
+    public String getPlaceWebSite() {
+        return placeWebSite;
+    }
+
+    public void setPlaceWebSite(String placeWebSite) {
+        this.placeWebSite = placeWebSite;
     }
 }

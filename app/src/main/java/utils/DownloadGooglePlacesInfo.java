@@ -23,10 +23,28 @@ public class DownloadGooglePlacesInfo
                     sb.append(line);
                 }
                 System.out.println(sb);
-                places = GooglePlacesResultsParser.parseGoogleParse(sb.toString());
+                places = GooglePlacesResultsParser.parseGooglePlaceSearchResults(sb.toString());
             } catch (Exception e) {
                 e.printStackTrace();
             }
             return places;
         }
+
+    public static Place makeCallForPlaceDetails(String url) {
+        Place place = new Place();
+        try {
+            StringBuilder sb = new StringBuilder();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(new ConnectionManager().getInputStream(url)));
+            String line;
+            System.out.println(rd.toString());
+            while ((line = rd.readLine()) != null) {
+                sb.append(line);
+            }
+            System.out.println(sb);
+            place = GooglePlacesResultsParser.parseGooglePlaceDetailsResults(sb.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return place;
+    }
 }
