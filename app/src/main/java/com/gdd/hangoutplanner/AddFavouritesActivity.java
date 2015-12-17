@@ -149,7 +149,7 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
         LatLng address = new LatLng(lat, longitude);
         mMap.addMarker(new MarkerOptions().position(address).title(addressSelected));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(address));
-        float zoomLevel = 10.0f;
+        float zoomLevel = 5.0f;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(address, zoomLevel));
     }
 
