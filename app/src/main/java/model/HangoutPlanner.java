@@ -59,13 +59,22 @@ public class HangoutPlanner extends Application {
 
     private Map<String, String> getGoogleHanoutMapping(){
         Map<String, String> googleTypeMapping = new HashMap<>();
-        googleTypeMapping.put("bar", "bar");
-        googleTypeMapping.put("movies", "movie_theater");
-        googleTypeMapping.put("hotel", "lodging");
-        googleTypeMapping.put("shopping", "shopping_mall");
-        googleTypeMapping.put("localmall", "shopping_mall");
-        googleTypeMapping.put("food", "food");
+        googleTypeMapping.put("restaurant", "restaurant");
         googleTypeMapping.put("cafe", "cafe");
+        googleTypeMapping.put("movie theater", "movie_theater");
+        googleTypeMapping.put("bar", "bar");
+        googleTypeMapping.put("amusement park", "amusement_park");
+        googleTypeMapping.put("art gallery", "art_gallery");
+        googleTypeMapping.put("casino", "casino");
+        googleTypeMapping.put("camp ground", "campground");
+        googleTypeMapping.put("museum", "museum");
+        googleTypeMapping.put("night clubs", "night_club");
+        googleTypeMapping.put("park", "park");
+        googleTypeMapping.put("shopping mall", "shopping_mall");
+        googleTypeMapping.put("spa", "spa");
+        googleTypeMapping.put("aquarium", "aquarium");
+        googleTypeMapping.put("zoo", "zoo");
+        googleTypeMapping.put("tourist attractions", "tourist attractions");
         return googleTypeMapping;
     }
 

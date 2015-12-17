@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.NavUtils;
@@ -80,16 +81,36 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
 
         Button buttonGetPlaces = (Button) findViewById(R.id.buttonGetPlaces);
         listView = (ListView) findViewById(R.id.listInterests);
-        ArrayList<String> interests = new ArrayList<String>();
-        interests.add("bar");interests.add("movies");
-        interests.add("food");interests.add("shopping");
-        interests.add("hotel");interests.add("localmall");
+        ArrayList<String> interests = addAllInterests();
+
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_multiple_choice, interests);
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         listView.setAdapter(adapter);
         buttonGetPlaces.setOnClickListener(this);
 
+    }
+
+    @NonNull
+    private ArrayList<String> addAllInterests() {
+        ArrayList<String> interests = new ArrayList<String>();
+        interests.add("restaurant");
+        interests.add("cafe");
+        interests.add("movie theater");
+        interests.add("bar");
+        interests.add("tourist attractions");
+        interests.add("amusement park");
+        interests.add("art gallery");
+        interests.add("casino");
+        interests.add("camp ground");
+        interests.add("museum");
+        interests.add("night clubs");
+        interests.add("park");
+        interests.add("shopping mall");
+        interests.add("spa");
+        interests.add("aquarium");
+        interests.add("zoo");
+        return interests;
     }
 
     private void enableBackButtonCustomLogic(Toolbar toolbar) {

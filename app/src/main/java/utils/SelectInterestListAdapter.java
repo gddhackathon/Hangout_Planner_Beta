@@ -54,26 +54,53 @@ public class SelectInterestListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-       if(listData.get(position).getName().equalsIgnoreCase("bar")){
-           holder.imagePlace.setImageResource(R.drawable.bar);
+       if(listData.get(position).getName().equalsIgnoreCase("restaurant")){
+           holder.imagePlace.setImageResource(R.drawable.restaurant);
        }
+        if(listData.get(position).getName().equalsIgnoreCase("cafe")){
+            holder.imagePlace.setImageResource(R.drawable.cafe);
+        }
         if(listData.get(position).getName().equalsIgnoreCase("movie_theater")){
             holder.imagePlace.setImageResource(R.drawable.movie_theater);
         }
-        if(listData.get(position).getName().equalsIgnoreCase("lodging")){
-            holder.imagePlace.setImageResource(R.drawable.spa);
+        if(listData.get(position).getName().equalsIgnoreCase("bar")){
+            holder.imagePlace.setImageResource(R.drawable.bar);
+        }
+        if(listData.get(position).getName().equalsIgnoreCase("amusement_park")){
+            holder.imagePlace.setImageResource(R.drawable.amusement_park);
+        }
+        if(listData.get(position).getName().equalsIgnoreCase("art_gallery")){
+            holder.imagePlace.setImageResource(R.drawable.art_gallery);
+        }
+        if(listData.get(position).getName().equalsIgnoreCase("casino")){
+            holder.imagePlace.setImageResource(R.drawable.casino);
+        }
+        if(listData.get(position).getName().equalsIgnoreCase("campground")){
+            holder.imagePlace.setImageResource(R.drawable.campground);
+        }
+        if(listData.get(position).getName().equalsIgnoreCase("museum")){
+            holder.imagePlace.setImageResource(R.drawable.museum);
+        }
+        if(listData.get(position).getName().equalsIgnoreCase("night_club")){
+            holder.imagePlace.setImageResource(R.drawable.night_clubs);
+        }
+        if(listData.get(position).getName().equalsIgnoreCase("park")){
+            holder.imagePlace.setImageResource(R.drawable.park);
         }
         if(listData.get(position).getName().equalsIgnoreCase("shopping_mall")){
             holder.imagePlace.setImageResource(R.drawable.shopping_mall);
         }
-        if(listData.get(position).getName().equalsIgnoreCase("localmall")){
-            holder.imagePlace.setImageResource(R.drawable.shopping_mall);
+        if(listData.get(position).getName().equalsIgnoreCase("spa")){
+            holder.imagePlace.setImageResource(R.drawable.spa);
         }
-        if(listData.get(position).getName().equalsIgnoreCase("food")){
-            holder.imagePlace.setImageResource(R.drawable.restaurant);
+        if(listData.get(position).getName().equalsIgnoreCase("aquarium")){
+            holder.imagePlace.setImageResource(R.drawable.aquarium);
         }
-        if(listData.get(position).getName().equalsIgnoreCase("Tourist attractions")){
-            holder.imagePlace.setImageResource(R.drawable.restaurant);
+        if(listData.get(position).getName().equalsIgnoreCase("zoo")){
+            holder.imagePlace.setImageResource(R.drawable.zoo);
+        }
+        if(listData.get(position).getName().equalsIgnoreCase("tourist attractions")){
+            holder.imagePlace.setImageResource(R.drawable.tourist_attractions);
         }
         return convertView;
     }
