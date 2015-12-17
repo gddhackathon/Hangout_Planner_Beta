@@ -39,7 +39,7 @@ public class PlaceDetailsActivity extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        getSupportActionBar().setHomeButtonEnabled(true);
         Place place  = (Place)getIntent().getExtras().get("destination");
 
         TextView textView = (TextView) findViewById(R.id.textViewTitle);

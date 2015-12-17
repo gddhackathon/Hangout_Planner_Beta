@@ -45,6 +45,7 @@ public class PopularDestinationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final HangoutPlanner hangoutPlanner = (HangoutPlanner)getActivity().getApplicationContext();
+
         final View rootView = inflater.inflate(R.layout.fragment_popular_destination, container, false);
         autoCompletePlaces(rootView);
 
@@ -156,8 +157,8 @@ public class PopularDestinationFragment extends Fragment {
                     final HangoutPlanner hangoutPlanner = (HangoutPlanner) getActivity().getApplicationContext();
                     hangoutPlanner.setLatLon(latLon);
                     hangoutPlanner.setSelectedAddress(selectedAddress);
-                   // RecentSearchDbHelper recentSearchDbHelper = new RecentSearchDbHelper(getActivity());
-                  //  startActivity(intent);
+                    // RecentSearchDbHelper recentSearchDbHelper = new RecentSearchDbHelper(getActivity());
+                    //  startActivity(intent);
                 }
             }
         });

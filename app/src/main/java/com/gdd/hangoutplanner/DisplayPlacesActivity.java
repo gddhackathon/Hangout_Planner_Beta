@@ -51,7 +51,7 @@ public class DisplayPlacesActivity extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        getSupportActionBar().setIcon(R.drawable.top_icon);
         // Converting HashMap Values into ArrayList - List<Place>
         ArrayList<Place> selectedInterestVsPlaces = (ArrayList<Place>) getIntent().getSerializableExtra("selectedInterestVsPlaces");
         //List valueList = new ArrayList(interestVsPlaces.values());

@@ -52,6 +52,7 @@ public class DestinationOverviewActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Destination Weather and Interests");
         setSupportActionBar(toolbar);
+        getSupportActionBar().setIcon(R.drawable.top_icon);
         HangoutPlanner hangoutPlanner = (HangoutPlanner) getApplicationContext();
         System.out.println("hangoutPlanner = " + hangoutPlanner.getSelectedInteresets().toArray().toString());
         TextView addressSelectedTextView  = (TextView) findViewById(R.id.textViewTitle);
@@ -80,7 +81,8 @@ public class DestinationOverviewActivity extends AppCompatActivity {
         }
         selectedListView.setAdapter(new InterestListAdapter(this, selectedIntArrayList));
 
-                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         String tempURL = getWeatherURL();
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -64,8 +65,8 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Select your Interests");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
-
+        getSupportActionBar().setIcon(R.drawable.top_icon);
+        enableBackButtonCustomLogic(toolbar);
 
         HangoutPlanner hangoutPlanner = (HangoutPlanner) getApplicationContext();
         String latLon = hangoutPlanner.getLatLon();
@@ -89,6 +90,19 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
         listView.setAdapter(adapter);
         buttonGetPlaces.setOnClickListener(this);
 
+    }
+
+    private void enableBackButtonCustomLogic(Toolbar toolbar) {
+        if (null != toolbar) {
+            toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_mtrl_am_alpha);
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    NavUtils.navigateUpFromSameTask(AddFavouritesActivity.this);
+                }
+            });
+            toolbar.inflateMenu(R.menu.menu_places);
+        }
     }
 
     public void onClick(View v) {
