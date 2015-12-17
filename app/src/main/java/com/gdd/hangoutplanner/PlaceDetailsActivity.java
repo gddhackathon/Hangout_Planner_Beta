@@ -3,6 +3,8 @@ package com.gdd.hangoutplanner;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -11,12 +13,17 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
+import android.util.LruCache;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 import com.gdd.hangoutplanner.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -33,6 +40,7 @@ import java.util.ArrayList;
 import model.HangoutPlanner;
 import model.Photo;
 import model.Place;
+import utils.ImageDownloaderTask;
 
 public class PlaceDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -40,8 +48,20 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
     private Intent mShareIntent;
     private GoogleMap mMap;
     private Place place;
+    private int currImage = 0;
+    private int totalIamge;
+    final String GOOGLE_KEY = "AIzaSyD7KfyVhXLs5sKtRPMDt1uCKW9vq3LPTM8";
+    private LruCache<String, Bitmap> mMemoryCache;
+    final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+    final int cacheSize = maxMemory / 8;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mMemoryCache = new LruCache<String, Bitmap>(cacheSize) {
+            @Override
+            protected int sizeOf(String key, Bitmap bitmap) {
+                return bitmap.getByteCount() / 1024;
+            }
+        };
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -76,37 +96,10 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
         website.setText(place.getPlaceWebSite());
         TextView open = (TextView) findViewById(R.id.textView14);
         open.setText(place.getOpenNow());
-
-        int temp=1;
-        if(null != place.getPhotos()) {
-            for (Photo photo : place.getPhotos()) {
-                if (null != photo) {
-                    if (temp == 1) {
-                        ImageView imageView = (ImageView) findViewById(R.id.imageView5);
-                        Bitmap bmp = getBitmap(place);
-                        if (bmp != null)
-                            imageView.setImageBitmap(bmp);
-
-                    }
-                    if (temp == 2) {
-                        ImageView imageView = (ImageView) findViewById(R.id.imageView8);
-                        Bitmap bmp = getBitmap(place);
-                        if (bmp != null)
-                            imageView.setImageBitmap(bmp);
-                    }
-                    if (temp == 3) {
-                        ImageView imageView = (ImageView) findViewById(R.id.imageView9);
-                        Bitmap bmp = getBitmap(place);
-                        if (bmp != null)
-                            imageView.setImageBitmap(bmp);
-                        break;
-                    }
-                    temp++;
-                }
-            }
-        }
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        initializeImageSwitcher();
+        setInitialImage();
+        setImageRotateListener();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,18 +109,50 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
         });
     }
 
-    @Nullable
-    private Bitmap getBitmap(Place place) {
-        URL url;
-        Bitmap bmp = null;
-        try {
-            url = new URL(place.getIcon());
-            bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-        }
-        catch (Exception e){
+    private void initializeImageSwitcher() {
+        final ImageSwitcher imageSwitcher = (ImageSwitcher) findViewById(R.id.imageSwitcher);
+        imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
+            @Override
+            public View makeView() {
+                ImageView imageView = new ImageView(PlaceDetailsActivity.this);
+                imageView.setMinimumWidth(600);
+                imageView.setMinimumHeight(600);
+                imageView.setMaxWidth(1600);
+                imageView.setMaxHeight(1600);
+                return imageView;
+            }
+        });
 
-        }
-        return bmp;
+        imageSwitcher.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left));
+        imageSwitcher.setOutAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right));
+    }
+
+    private void setImageRotateListener() {
+        final Button rotatebutton = (Button) findViewById(R.id.NextImage);
+        rotatebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                currImage++;
+                if (currImage == place.getPhotos().size()) {
+                    currImage = 0;
+                }
+                setCurrentImage();
+            }
+        });
+    }
+
+    private void setInitialImage() {
+        setCurrentImage();
+    }
+
+    private void setCurrentImage() {
+        final ImageSwitcher imageSwitcher = (ImageSwitcher) findViewById(R.id.imageSwitcher);
+        ImageDownloaderTask imageDownloaderTask = new ImageDownloaderTask((ImageView)imageSwitcher.getCurrentView(),mMemoryCache);
+        String photoReference = place.getPhotos().get(currImage).getPhotoReference();
+        String photoWidth = "600";//place.getPhotos().get(currImage).getWidth();
+        String photoHeight = "600";//place.getPhotos().get(currImage).getHeight();
+        String googleImageURL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth="+photoWidth+"&maxheight="+photoHeight+"&photoreference="+photoReference+"&key="+GOOGLE_KEY;
+        imageDownloaderTask.execute(googleImageURL);
     }
 
     @Override
