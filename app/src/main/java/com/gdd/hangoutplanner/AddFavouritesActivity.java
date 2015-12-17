@@ -3,6 +3,7 @@ package com.gdd.hangoutplanner;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -17,6 +18,7 @@ import android.util.SparseBooleanArray;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -84,9 +86,36 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
         ArrayList<String> interests = addAllInterests();
 
         adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_multiple_choice, interests);
+                android.R.layout.simple_list_item_multiple_choice, interests) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(Color.BLACK);
+                text.setTextSize(20);
+                return view;
+            }
+        };
         listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         listView.setAdapter(adapter);
+
+        CheckBox ckSlectAll = (CheckBox) findViewById(R.id.chkAll);
+        ckSlectAll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckBox checkBox = (CheckBox)v;
+                int count = listView.getCount();
+                if(checkBox.isChecked()){
+                    for(int i=0 ; i<count ; i++){
+                        listView.setItemChecked(i, true);
+                    }
+                }else{
+                    for(int i=0 ; i<count ; i++){
+                        listView.setItemChecked(i, false);
+                    }
+                }
+            }
+        });
         buttonGetPlaces.setOnClickListener(this);
 
     }
@@ -94,22 +123,22 @@ public class AddFavouritesActivity extends AppCompatActivity implements OnMapRea
     @NonNull
     private ArrayList<String> addAllInterests() {
         ArrayList<String> interests = new ArrayList<String>();
-        interests.add("restaurant");
-        interests.add("cafe");
-        interests.add("movie theater");
-        interests.add("bar");
-        interests.add("tourist attractions");
-        interests.add("amusement park");
-        interests.add("art gallery");
-        interests.add("casino");
-        interests.add("camp ground");
-        interests.add("museum");
-        interests.add("night clubs");
-        interests.add("park");
-        interests.add("shopping mall");
-        interests.add("spa");
-        interests.add("aquarium");
-        interests.add("zoo");
+        interests.add("Restaurant");
+        interests.add("Cafe");
+        interests.add("Movie theater");
+        interests.add("Bar");
+        interests.add("Tourist attractions");
+        interests.add("Amusement park");
+        interests.add("Art gallery");
+        interests.add("Casino");
+        interests.add("Camp ground");
+        interests.add("Museum");
+        interests.add("Night clubs");
+        interests.add("Park");
+        interests.add("Shopping mall");
+        interests.add("Spa");
+        interests.add("Aquarium");
+        interests.add("Zoo");
         return interests;
     }
 

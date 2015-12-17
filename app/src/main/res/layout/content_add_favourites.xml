@@ -36,17 +36,38 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select All "
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_above="@+id/listInterests"
+        android:layout_toLeftOf="@+id/chkAll"
+        android:layout_toStartOf="@+id/chkAll"
+        android:layout_marginRight="29dp"
+        android:layout_marginEnd="29dp" />
+
+    <CheckBox
+        android:id="@+id/chkAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_below="@+id/map"
+        android:layout_alignRight="@+id/listInterests"
+        android:layout_alignEnd="@+id/listInterests" />
+
     <ListView
         android:id="@+id/listInterests"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginTop="5dp"
         android:dividerHeight="2dp"
         android:fadingEdge="vertical"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/map"
-        android:layout_above="@+id/buttonGetPlaces" />
+        android:layout_above="@+id/buttonGetPlaces"
+        android:layout_below="@+id/textView4" />
 
     <Button
         android:layout_width="wrap_content"

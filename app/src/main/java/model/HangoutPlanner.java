@@ -59,22 +59,22 @@ public class HangoutPlanner extends Application {
 
     private Map<String, String> getGoogleHanoutMapping(){
         Map<String, String> googleTypeMapping = new HashMap<>();
-        googleTypeMapping.put("restaurant", "restaurant");
-        googleTypeMapping.put("cafe", "cafe");
-        googleTypeMapping.put("movie theater", "movie_theater");
-        googleTypeMapping.put("bar", "bar");
-        googleTypeMapping.put("amusement park", "amusement_park");
-        googleTypeMapping.put("art gallery", "art_gallery");
-        googleTypeMapping.put("casino", "casino");
-        googleTypeMapping.put("camp ground", "campground");
-        googleTypeMapping.put("museum", "museum");
-        googleTypeMapping.put("night clubs", "night_club");
-        googleTypeMapping.put("park", "park");
-        googleTypeMapping.put("shopping mall", "shopping_mall");
-        googleTypeMapping.put("spa", "spa");
-        googleTypeMapping.put("aquarium", "aquarium");
+        googleTypeMapping.put("Restaurant", "restaurant");
+        googleTypeMapping.put("Cafe", "cafe");
+        googleTypeMapping.put("Movie theater", "movie_theater");
+        googleTypeMapping.put("Bar", "bar");
+        googleTypeMapping.put("Amusement park", "amusement_park");
+        googleTypeMapping.put("Art gallery", "art_gallery");
+        googleTypeMapping.put("Casino", "casino");
+        googleTypeMapping.put("Camp ground", "campground");
+        googleTypeMapping.put("Museum", "museum");
+        googleTypeMapping.put("Night clubs", "night_club");
+        googleTypeMapping.put("Park", "park");
+        googleTypeMapping.put("Shopping mall", "shopping_mall");
+        googleTypeMapping.put("Spa", "spa");
+        googleTypeMapping.put("Aquarium", "aquarium");
         googleTypeMapping.put("zoo", "zoo");
-        googleTypeMapping.put("tourist attractions", "tourist attractions");
+        googleTypeMapping.put("Tourist attractions", "tourist attractions");
         return googleTypeMapping;
     }
 
