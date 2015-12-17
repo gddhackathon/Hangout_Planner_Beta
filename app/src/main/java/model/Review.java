@@ -1,13 +1,17 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Created by AchsahSiri on 12/17/2015.
  */
-public class Review {
+public class Review implements Serializable {
 
     private String authorName;
     private String rating;
     private String text;
+
+    private String profilePhotoUrl;
 
     public String getAuthorName() {
         return authorName;
@@ -31,5 +35,13 @@ public class Review {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getProfilePhotoUrl() {
+        return profilePhotoUrl;
+    }
+
+    public void setProfilePhotoUrl(String profilePhotoUrl) {
+        this.profilePhotoUrl = profilePhotoUrl;
     }
 }

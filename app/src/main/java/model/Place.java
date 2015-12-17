@@ -25,6 +25,7 @@ public class Place implements Comparable, Serializable {
     private List<Review> reviews;
     private String placeURL;
     private String placeWebSite;
+    private String photoReference;
 
 
     public int compareTo(Object obj){
@@ -194,5 +195,13 @@ public class Place implements Comparable, Serializable {
 
     public void setPlaceWebSite(String placeWebSite) {
         this.placeWebSite = placeWebSite;
+    }
+
+    public String getPhotoReference() {
+        return photoReference;
+    }
+
+    public void setPhotoReference(String photoReference) {
+        this.photoReference = photoReference;
     }
 }

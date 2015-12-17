@@ -10,12 +10,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import model.CoOrdinate;
 import model.Geometry;
 import model.Photo;
 import model.Place;
+import model.Review;
 
 /**
  * Created by AchsahSiri on 12/12/2015.
@@ -115,8 +118,18 @@ public class GooglePlacesResultsParser {
                     if (result.has("icon")) {
                         place.setIcon(result.optString("icon"));
                     }
+                    if (result.has("price_level")) {
+                        place.setPriceLevel(getPriceLevel(result.optString("price_level")));
+                    }
+                    if (result.has("reference")) {
+                        place.setPhotoReference(result.optString("reference"));
+                    }
                     if (result.has("rating")) {
                         place.setRating(result.optString("rating"));
+                    }
+                    if (result.has("reviews")) {
+                        JSONArray types = result.getJSONArray("reviews");
+                        place.setReviews(getReviews(types));
                     }
                     if (result.has("vicinity")) {
                         place.setAddress(result.optString("vicinity"));
@@ -169,6 +182,23 @@ public class GooglePlacesResultsParser {
         return photos;
     }
 
+    private static List<Review> getReviews(JSONArray types){
+        List<Review> reviews = new ArrayList<>();
+        for(int i = 0; i < types.length(); i++){
+            Review review = new Review();
+            try {
+                review.setAuthorName(types.getJSONObject(i).getString("author_name"));
+                review.setRating(types.getJSONObject(i).getString("rating"));
+                review.setProfilePhotoUrl(types.getJSONObject(i).getString("profile_photo_url"));
+                review.setText(types.getJSONObject(i).getString("text"));
+                reviews.add(review);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return reviews;
+    }
+
     private static String getOpenNow(JSONObject openingHours){
         String openNow = "No Data";
         if(openingHours.has("open_now")){
@@ -201,6 +231,16 @@ public class GooglePlacesResultsParser {
             }
         }
         return interestTypes;
+    }
+
+    private static String getPriceLevel(String priveLevel){
+        Map<String,String> priceLevelMapping = new HashMap<>();
+        priceLevelMapping.put("0","Free");
+        priceLevelMapping.put("1","Inexpensive");
+        priceLevelMapping.put("2","Moderate");
+        priceLevelMapping.put("3","Expensive");
+        priceLevelMapping.put("4","Very Expensive");
+        return priceLevelMapping.get(priveLevel);
     }
 
 }

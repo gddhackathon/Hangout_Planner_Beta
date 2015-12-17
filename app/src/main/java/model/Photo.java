@@ -1,9 +1,11 @@
 package model;
 
+import java.io.Serializable;
+
 /**
  * Created by AchsahSiri on 12/17/2015.
  */
-public class Photo {
+public class Photo implements Serializable {
 
     private String height;
     private String width;
