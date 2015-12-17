@@ -98,7 +98,7 @@ public class PopularDestinationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
-                hangoutPlanner.setLatLon("41.8369:-87.6847");
+                hangoutPlanner.setLatLon("41.836944:-87.684722");
                 hangoutPlanner.setSelectedAddress("Chicago");
                 startActivity(intent);
             }
@@ -108,7 +108,7 @@ public class PopularDestinationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
-                hangoutPlanner.setLatLon("25.7753:-80.2089");
+                hangoutPlanner.setLatLon("25.775278:-80.208889");
                 hangoutPlanner.setSelectedAddress("Miami");
                 startActivity(intent);
             }
@@ -118,7 +118,7 @@ public class PopularDestinationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
-                hangoutPlanner.setLatLon("47.6097:-122.3331");
+                hangoutPlanner.setLatLon("47.609722:-122.333056");
                 hangoutPlanner.setSelectedAddress("Seattle");
                 startActivity(intent);
             }
@@ -128,7 +128,7 @@ public class PopularDestinationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
-                hangoutPlanner.setLatLon("34.0500:-118.2500");
+                hangoutPlanner.setLatLon("34.05:-118.25");
                 hangoutPlanner.setSelectedAddress("Los Angeles");
                 startActivity(intent);
             }
