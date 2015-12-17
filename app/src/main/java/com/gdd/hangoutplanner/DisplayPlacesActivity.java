@@ -19,6 +19,8 @@ import android.widget.Toast;
 
 import com.gdd.hangoutplanner.R;
 
+import org.apache.commons.codec.binary.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -37,6 +39,8 @@ public class DisplayPlacesActivity extends AppCompatActivity {
     //final String GOOGLE_KEY = "AIzaSyDURS72iPBGDLrvYRoqqivse3zIiqvbVnU";
     final String GOOGLE_KEY = "AIzaSyD7KfyVhXLs5sKtRPMDt1uCKW9vq3LPTM8";
 
+    private String placeid=null;
+    private Place placeSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +54,12 @@ public class DisplayPlacesActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                if(null == placeid || "".equalsIgnoreCase(placeid)){
+                Snackbar.make(view, "Select a place to view all details", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                }else{
+
+                }
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -69,13 +77,15 @@ public class DisplayPlacesActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Object o = lv1.getItemAtPosition(position);
                 Place newsData = (Place) o;
+                placeSelected = newsData;
+                placeid = newsData.getPlace_id();
                 StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
                 StrictMode.setThreadPolicy(policy);
                 String googlePlacesDetailsURL = getUrl(newsData.getPlace_id());
                 Place place = DownloadGooglePlacesInfo.makeCallForPlaceDetails(googlePlacesDetailsURL);
                 Intent intent = new Intent(getApplication(), PlaceDetailsActivity.class);
-                intent.putExtra("selectedInterestVsPlaces", (ArrayList)selectedInterestVsPlaces);
-                intent.putExtra("destination" , place);
+                intent.putExtra("selectedInterestVsPlaces", (ArrayList) selectedInterestVsPlaces);
+                intent.putExtra("destination", place);
                 startActivity(intent);
             }
         });
