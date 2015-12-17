@@ -3,12 +3,15 @@ package com.gdd.hangoutplanner;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,9 +93,19 @@ public class PopularDestinationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 CurrentLocationProvider currentLocationProvider = new CurrentLocationProvider(getActivity().getApplicationContext());
-                currentLocationProvider.getCurrentLocation();
-                Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
-                startActivity(intent);
+
+                final LocationManager manager = (LocationManager) getActivity().getSystemService( Context.LOCATION_SERVICE );
+                boolean isGPSEnabled = manager
+                        .isProviderEnabled(LocationManager.GPS_PROVIDER);
+                boolean isNetworkEnabled = manager
+                        .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+                if (!isGPSEnabled && !isNetworkEnabled) {
+                    buildAlertMessageNoGps();
+                }else {
+                    currentLocationProvider.getCurrentLocation();
+                    Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         ImageView imageNyc = (ImageView)rootView.findViewById(R.id.populardestinations_nyc);
@@ -195,6 +208,24 @@ public class PopularDestinationFragment extends Fragment {
             selectedAddress  = locationAddress;
             Toast.makeText(getActivity().getApplicationContext(), latLon, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage("Your GPS seems is disabled, Do you want to enable it now?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
     }
 
 
