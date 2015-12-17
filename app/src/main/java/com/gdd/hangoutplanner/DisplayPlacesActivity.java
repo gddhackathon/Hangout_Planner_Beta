@@ -53,7 +53,7 @@ public class DisplayPlacesActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setIcon(R.drawable.top_icon);
         // Converting HashMap Values into ArrayList - List<Place>
-        ArrayList<Place> selectedInterestVsPlaces = (ArrayList<Place>) getIntent().getSerializableExtra("selectedInterestVsPlaces");
+       final ArrayList<Place> selectedInterestVsPlaces = (ArrayList<Place>) getIntent().getSerializableExtra("selectedInterestVsPlaces");
         //List valueList = new ArrayList(interestVsPlaces.values());
         //ArrayList places = (ArrayList)valueList.get(0);
         ArrayList<Place> sortedPlaces = getSortedPlaces(selectedInterestVsPlaces);
@@ -66,6 +66,7 @@ public class DisplayPlacesActivity extends AppCompatActivity {
                 Object o = lv1.getItemAtPosition(position);
                 Place newsData = (Place) o;
                 Intent intent = new Intent(getApplication(), PlaceDetailsActivity.class);
+                intent.putExtra("selectedInterestVsPlaces", (ArrayList)selectedInterestVsPlaces);
                 intent.putExtra("destination" , newsData);
                 startActivity(intent);
             }

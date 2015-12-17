@@ -12,8 +12,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gdd.hangoutplanner.R;
+
+import java.util.ArrayList;
 
 import model.Place;
 
@@ -65,5 +68,16 @@ public class PlaceDetailsActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                final ArrayList<Place> selectedInterestVsPlaces = (ArrayList<Place>) getIntent().getSerializableExtra("selectedInterestVsPlaces");
+                Intent intent = new Intent(getApplication(), DisplayPlacesActivity.class);
+                intent.putExtra("selectedInterestVsPlaces", (ArrayList)selectedInterestVsPlaces);
+                startActivity(intent);
+        }
+        return true;
+    }
 
 }
