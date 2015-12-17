@@ -23,8 +23,11 @@ import android.widget.Toast;
 
 import com.gdd.hangoutplanner.R;
 
+import java.util.ArrayList;
+
 import db.RecentSearchDbHelper;
 import model.HangoutPlanner;
+import model.RecentSearch;
 import utils.CurrentLocationProvider;
 import utils.GeocodingLocation;
 import utils.GooglePlacesUtil;
@@ -67,7 +70,12 @@ public class PopularDestinationFragment extends Fragment {
                     hangoutPlanner.setLatLon(latLon);
                     hangoutPlanner.setSelectedAddress(selectedAddress);
                     RecentSearchDbHelper recentSearchDbHelper = new RecentSearchDbHelper(getContext());
-                    if(!recentSearchDbHelper.getResentSearches().contains(selectedAddress)){
+                    ArrayList<RecentSearch> recentSearch = recentSearchDbHelper.getResentSearches();
+                    ArrayList recentSearchAddress = new ArrayList<>();
+                    for(RecentSearch search : recentSearch){
+                        recentSearchAddress.add(search.getAddress());
+                    }
+                    if(!recentSearchAddress.contains(selectedAddress)){
                         recentSearchDbHelper.insertResentSearch(selectedAddress,latLon);
                     }
                     startActivity(intent);
