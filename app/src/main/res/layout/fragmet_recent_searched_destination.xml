@@ -13,10 +13,10 @@
         android:layout_above="@+id/buttonClear" />
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/roundedbutton"
-        android:text="Clear Recent Search"
+        android:text="Clear Cache"
         android:textColor="@color/white"
         android:id="@+id/buttonClear"
         android:layout_alignParentBottom="true"

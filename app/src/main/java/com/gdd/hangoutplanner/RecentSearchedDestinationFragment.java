@@ -2,11 +2,13 @@ package com.gdd.hangoutplanner;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -78,9 +80,28 @@ public class RecentSearchedDestinationFragment extends Fragment{
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recentSearchDbHelper.clearHistory();
-                getActivity().finish();
-                startActivity(getActivity().getIntent());
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                        getContext());
+                alertDialogBuilder.setTitle("Clear Cache ?");
+                alertDialogBuilder
+                        .setCancelable(false)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                recentSearchDbHelper.clearHistory();
+                                getActivity().finish();
+                                startActivity(getActivity().getIntent());
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                // if this button is clicked, just close
+                                // the dialog box and do nothing
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
             }
         });
 
