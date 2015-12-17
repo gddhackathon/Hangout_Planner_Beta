@@ -171,9 +171,15 @@ public class GooglePlacesResultsParser {
         for(int i = 0; i < types.length(); i++){
             Photo photo = new Photo();
             try {
-                photo.setHeight(types.getJSONObject(i).getString("height"));
-                photo.setWidth(types.getJSONObject(i).getString("width"));
-                photo.setPhotoReference(types.getJSONObject(i).getString("photo_reference"));
+                if(types.getJSONObject(i).has("height")) {
+                    photo.setHeight(types.getJSONObject(i).getString("height"));
+                }
+                if(types.getJSONObject(i).has("width")) {
+                    photo.setWidth(types.getJSONObject(i).getString("width"));
+                }
+                if(types.getJSONObject(i).has("photo_reference")) {
+                    photo.setPhotoReference(types.getJSONObject(i).getString("photo_reference"));
+                }
                 photos.add(photo);
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -187,10 +193,18 @@ public class GooglePlacesResultsParser {
         for(int i = 0; i < types.length(); i++){
             Review review = new Review();
             try {
-                review.setAuthorName(types.getJSONObject(i).getString("author_name"));
-                review.setRating(types.getJSONObject(i).getString("rating"));
-                review.setProfilePhotoUrl(types.getJSONObject(i).getString("profile_photo_url"));
-                review.setText(types.getJSONObject(i).getString("text"));
+                if(types.getJSONObject(i).has("author_name")) {
+                    review.setAuthorName(types.getJSONObject(i).getString("author_name"));
+                }
+                if(types.getJSONObject(i).has("rating")) {
+                    review.setRating(types.getJSONObject(i).getString("rating"));
+                }
+                if(types.getJSONObject(i).has("profile_photo_url")) {
+                    review.setProfilePhotoUrl(types.getJSONObject(i).getString("profile_photo_url"));
+                }
+                if(types.getJSONObject(i).has("text")) {
+                    review.setText(types.getJSONObject(i).getString("text"));
+                }
                 reviews.add(review);
             } catch (JSONException e) {
                 e.printStackTrace();
