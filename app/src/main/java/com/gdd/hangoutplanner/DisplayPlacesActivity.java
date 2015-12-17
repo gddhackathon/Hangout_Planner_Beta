@@ -13,7 +13,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 
 import java.util.ArrayList;
@@ -64,6 +66,7 @@ public class DisplayPlacesActivity extends AppCompatActivity {
         //List valueList = new ArrayList(interestVsPlaces.values());
         //ArrayList places = (ArrayList)valueList.get(0);
         ArrayList<Place> sortedPlaces = getSortedPlaces(selectedInterestVsPlaces);
+        emptyCheckForPlaces(sortedPlaces);
         final ListView lv1 = (ListView) findViewById(R.id.custom_list);
         lv1.setAdapter(new CustomListAdapter(this, sortedPlaces));
         lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -85,6 +88,28 @@ public class DisplayPlacesActivity extends AppCompatActivity {
             }
         });
 
+        Button button =(Button) findViewById(R.id.buttonSearchOther);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplication(), AddFavouritesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    private void emptyCheckForPlaces(ArrayList<Place> sortedPlaces) {
+        TextView textView = (TextView)findViewById(R.id.textViewNoPlaces);
+        Button button =(Button) findViewById(R.id.buttonSearchOther);
+        if((null == sortedPlaces) || (sortedPlaces.size()==0)){
+            textView.setVisibility(View.VISIBLE);
+            button.setVisibility(View.VISIBLE);
+        }
+        else {
+            textView.setVisibility(View.GONE);
+            button.setVisibility(View.GONE);
+        }
     }
 
     private ArrayList<Place> getSortedPlaces(ArrayList<Place> selectedInterestVsPlaces) {
