@@ -41,8 +41,8 @@ import utils.InterestListAdapter;
 
 public class DestinationOverviewActivity extends AppCompatActivity {
 
-    final String GOOGLE_KEY = "AIzaSyA2pWuAzJ_agDXpISSGDEh1hnk6B7SPMOw";
-
+    //final String GOOGLE_KEY = "AIzaSyDURS72iPBGDLrvYRoqqivse3zIiqvbVnU";
+    final String GOOGLE_KEY = "AIzaSyD7KfyVhXLs5sKtRPMDt1uCKW9vq3LPTM8";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

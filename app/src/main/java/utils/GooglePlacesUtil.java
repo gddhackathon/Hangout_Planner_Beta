@@ -23,7 +23,8 @@ public class GooglePlacesUtil extends ArrayAdapter implements Filterable {
     private static final String PLACES_API_BASE = "https://maps.googleapis.com/maps/api/place";
     private static final String TYPE_AUTOCOMPLETE = "/autocomplete";
     private static final String OUT_JSON = "/json";
-    private static final String API_KEY = "AIzaSyA2pWuAzJ_agDXpISSGDEh1hnk6B7SPMOw";
+    //private static final String API_KEY = "AIzaSyDURS72iPBGDLrvYRoqqivse3zIiqvbVnU";
+    private static final String API_KEY = "AIzaSyD7KfyVhXLs5sKtRPMDt1uCKW9vq3LPTM8";
 
     private ArrayList<String> resultList;
 
