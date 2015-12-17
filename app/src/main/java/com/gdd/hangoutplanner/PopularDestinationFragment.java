@@ -57,13 +57,7 @@ public class PopularDestinationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (latLon == null) {
-                    CurrentLocationProvider currentLocationProvider = new CurrentLocationProvider(getActivity().getApplicationContext());
-                    currentLocationProvider.getCurrentLocation();
-                    String latLon = hangoutPlanner.getLatLon();
-                    String currentAddress = hangoutPlanner.getSelectedAddress();
-                    Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_place_error_message+latLon+currentAddress, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
-                    startActivity(intent);
+                    Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_place_error_message, Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
                     final HangoutPlanner hangoutPlanner = (HangoutPlanner) getActivity().getApplicationContext();
@@ -91,6 +85,16 @@ public class PopularDestinationFragment extends Fragment {
         }
 
         //popular Destinations
+        ImageView imageNearBy = (ImageView)rootView.findViewById(R.id.populardestinations_w);
+        imageNearBy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CurrentLocationProvider currentLocationProvider = new CurrentLocationProvider(getActivity().getApplicationContext());
+                currentLocationProvider.getCurrentLocation();
+                Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
+                startActivity(intent);
+            }
+        });
         ImageView imageNyc = (ImageView)rootView.findViewById(R.id.populardestinations_nyc);
         imageNyc.setOnClickListener(new View.OnClickListener() {
             @Override
