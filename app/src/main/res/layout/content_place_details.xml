@@ -108,6 +108,14 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
+        <RatingBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ratingBar"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@+id/textView9" />
+
     </RelativeLayout>
 
     <TextView
@@ -130,6 +138,7 @@
         android:layout_toRightOf="@+id/textView12"
         android:layout_toEndOf="@+id/textView12"
         android:textColor="@color/wallet_bright_foreground_holo_light" />
+
 
     <TextView
         android:layout_width="match_parent"

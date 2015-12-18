@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -22,6 +24,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
@@ -87,7 +90,8 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
         mShareIntent = new Intent();
         mShareIntent.setAction(Intent.ACTION_SEND);
         mShareIntent.setType("text/plain");
-        mShareIntent.putExtra(Intent.EXTRA_TEXT, "Address : " + place.getFormattedAddress() + "\n"
+        mShareIntent.putExtra(Intent.EXTRA_TEXT, "Name : " + place.getName() + "\n"
+                + "Address : " + place.getFormattedAddress() + "\n"
                 + "Phone : " + place.getFormattedPhoneNumber() + "\n"
                 + "Web : " + place.getPlaceWebSite() + "\n"
                 + "Rating : " + place.getRating());
@@ -108,6 +112,8 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
         setImageRotateListener();
         setOpenHours();
         setReviews();
+        setRating();
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,6 +121,15 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
                             .setAction("Action", null).show();
             }
         });
+    }
+
+    private void setRating() {
+        if(place.getRating() != null || ("".equalsIgnoreCase(place.getRating()))) {
+            RatingBar ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+            LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
+            stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+            ratingBar.setRating(Float.valueOf(place.getRating()));
+        }
     }
 
     private void setReviews() {
