@@ -35,12 +35,16 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.w3c.dom.Text;
+
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.HangoutPlanner;
 import model.Photo;
 import model.Place;
+import model.Review;
 import utils.HangoutPlannerUtil;
 import utils.ImageDownloaderTask;
 
@@ -73,9 +77,8 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
          place  = (Place)getIntent().getExtras().get("destination");
-        toolbar.setTitle(place.getAddress());
+        toolbar.setTitle(place.getName());
         toolbar.setSubtitle(place.getFormattedAddress());
-
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.placeMap);
         mapFragment.getMapAsync(this);
@@ -103,6 +106,8 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
         initializeImageSwitcher();
         setInitialImage();
         setImageRotateListener();
+        setOpenHours();
+        setReviews();
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -110,6 +115,37 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
                             .setAction("Action", null).show();
             }
         });
+    }
+
+    private void setReviews() {
+        TextView textView = (TextView) findViewById(R.id.textView18);
+        List<Review> reviews = place.getReviews();
+        if(null != place.getReviews()){
+            int temp=1;
+            String reviewString="";
+            for(Review review : reviews){
+                reviewString =reviewString +"\n"+ "Name : " + review.getAuthorName()+"\n"+
+                               review.getText() + "\n" +
+                        "Rating : " + review.getRating()+"\n" +
+                "                          ---------------------------------------------------------------------------                           ";
+                if(temp == 4)
+                    break;
+                temp++;
+            }
+            textView.setText(reviewString);
+        }
+    }
+
+    private void setOpenHours() {
+        TextView openWhen = (TextView) findViewById(R.id.textView13);
+        if(null != place.getOpenWhen()) {
+            String time="";
+            List<String> timing = place.getOpenWhen();
+            for (String opentiming : timing) {
+                time = time + "\n" + opentiming;
+            }
+            openWhen.setText(time);
+        }
     }
 
     private void updateTextColor(TextView open) {
@@ -168,6 +204,7 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
             photoReference = place.getPhotos().get(currImage).getPhotoReference();
         }
         else{
+            //Random Google Image Reference
             photoReference ="CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU";
         }
         String photoWidth = "600";//place.getPhotos().get(currImage).getWidth();
@@ -205,9 +242,9 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
         double lat = Double.valueOf(place.getGeometry().getCoOrdinate().getLat());
         double longitude = Double.valueOf(place.getGeometry().getCoOrdinate().getLon());
         LatLng address = new LatLng(lat, longitude);
-        Marker marker= mMap.addMarker(new MarkerOptions().position(address).title(place.getFormattedAddress()));
+        Marker marker= mMap.addMarker(new MarkerOptions().position(address).title(place.getName() +" ( "+place.getFormattedAddress()+" )"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(address));
-        float zoomLevel = 5.0f;
+        float zoomLevel = 6.0f;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(address, zoomLevel));
         marker.showInfoWindow();
     }

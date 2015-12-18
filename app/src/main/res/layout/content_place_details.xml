@@ -12,21 +12,30 @@
     tools:context="com.gdd.hangoutplanner.PlaceDetailsActivity"
     tools:showIn="@layout/activity_place_details">
 
+
     <fragment xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:map="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/placeMap"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="200dp"
         tools:context="com.gdd.hangoutplanner.PlaceDetailsActivity"
         android:layout_alignParentTop="true" />
-
+    <ScrollView
+        android:id="@+id/scroll1"
+        android:elevation="10dp"
+        android:layout_below="@id/placeMap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/rl1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:id="@+id/relativeLayout2"
-        android:layout_below="@+id/placeMap"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true">
 
@@ -175,13 +184,55 @@
         android:textColor="@color/white"
         android:shadowColor="@color/cardview_light_background"
         android:layout_height="wrap_content"
-        android:text="REVIEWS"
+        android:text="Open Hours"
         android:id="@+id/textView17"
         android:background="#7986CB"
         android:layout_below="@+id/relativeLayout3"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/wallet_bright_foreground_holo_light"
+        android:shadowColor="@color/cardview_light_background"
+        android:text="Operational hours data not available"
+        android:id="@+id/textView13"
+        android:layout_below="@+id/textView17"
+        android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:shadowColor="@color/cardview_light_background"
+        android:layout_height="wrap_content"
+        android:text="Reviews"
+        android:id="@+id/textView15"
+        android:background="#7986CB"
+        android:layout_below="@+id/textView13"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp" />
 
+            <ScrollView
+                android:id="@+id/scrollview2"
+                android:layout_below="@id/textView15"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/wallet_bright_foreground_holo_light"
+        android:shadowColor="@color/cardview_light_background"
+        android:text="No Reviews found for this place"
+        android:id="@+id/textView18"
+        android:layout_below="@+id/textView15"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+            </ScrollView>
+    </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>
