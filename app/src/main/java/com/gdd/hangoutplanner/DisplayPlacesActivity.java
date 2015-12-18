@@ -47,18 +47,6 @@ public class DisplayPlacesActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(null == placeid || "".equalsIgnoreCase(placeid)){
-                Snackbar.make(view, "Select a place to view all details", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                }else{
-
-                }
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setIcon(R.drawable.top_icon);
         // Converting HashMap Values into ArrayList - List<Place>
