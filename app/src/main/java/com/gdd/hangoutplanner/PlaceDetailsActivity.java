@@ -132,7 +132,8 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
                 imageView.setMinimumWidth(600);
                 imageView.setMinimumHeight(600);
                 imageView.setMaxWidth(1600);
-                imageView.setMaxHeight(1600);
+                imageView.setMaxHeight(5000);
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 return imageView;
             }
         });
@@ -162,7 +163,13 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
     private void setCurrentImage() {
         final ImageSwitcher imageSwitcher = (ImageSwitcher) findViewById(R.id.imageSwitcher);
         ImageDownloaderTask imageDownloaderTask = new ImageDownloaderTask((ImageView)imageSwitcher.getCurrentView(),mMemoryCache);
-        String photoReference = place.getPhotos().get(currImage).getPhotoReference();
+        String photoReference;
+        if(null != place.getPhotos()) {
+            photoReference = place.getPhotos().get(currImage).getPhotoReference();
+        }
+        else{
+            photoReference ="CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU";
+        }
         String photoWidth = "600";//place.getPhotos().get(currImage).getWidth();
         String photoHeight = "600";//place.getPhotos().get(currImage).getHeight();
         String googleImageURL = "https://maps.googleapis.com/maps/api/place/photo?maxwidth="+photoWidth+"&maxheight="+photoHeight+"&photoreference="+photoReference+"&key="+GOOGLE_KEY;
