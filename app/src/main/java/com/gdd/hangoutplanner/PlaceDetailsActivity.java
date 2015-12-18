@@ -8,6 +8,7 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -117,8 +118,9 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    Snackbar.make(view, "Yet to Implement Direction", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                Intent intent = new Intent(android.content.Intent.ACTION_VIEW,
+                        Uri.parse(place.getPlaceURL()));
+                startActivity(intent);
             }
         });
     }
