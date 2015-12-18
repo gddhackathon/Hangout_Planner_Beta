@@ -40,6 +40,7 @@ import java.util.ArrayList;
 import model.HangoutPlanner;
 import model.Photo;
 import model.Place;
+import utils.HangoutPlannerUtil;
 import utils.ImageDownloaderTask;
 
 public class PlaceDetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -50,7 +51,7 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
     private Place place;
     private int currImage = 0;
     private int totalIamge;
-    final String GOOGLE_KEY = "AIzaSyD7KfyVhXLs5sKtRPMDt1uCKW9vq3LPTM8";
+    final String GOOGLE_KEY = HangoutPlannerUtil.GOOGLE_KEY;
     private LruCache<String, Bitmap> mMemoryCache;
     final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
     final int cacheSize = maxMemory / 8;

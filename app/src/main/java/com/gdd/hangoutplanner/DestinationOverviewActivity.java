@@ -37,12 +37,12 @@ import utils.CustomListAdapter;
 import utils.DownloadGooglePlacesInfo;
 import utils.DownloadWeatherInfo;
 import utils.ExceptionHandler;
+import utils.HangoutPlannerUtil;
 import utils.InterestListAdapter;
 
 public class DestinationOverviewActivity extends AppCompatActivity {
 
-    //final String GOOGLE_KEY = "AIzaSyDURS72iPBGDLrvYRoqqivse3zIiqvbVnU";
-    final String GOOGLE_KEY = "AIzaSyD7KfyVhXLs5sKtRPMDt1uCKW9vq3LPTM8";
+    final String GOOGLE_KEY = HangoutPlannerUtil.GOOGLE_KEY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -30,11 +30,11 @@ import model.Place;
 import utils.CustomListAdapter;
 import utils.DownloadGooglePlacesInfo;
 import utils.ExceptionHandler;
+import utils.HangoutPlannerUtil;
 
 public class DisplayPlacesActivity extends AppCompatActivity {
 
-    final String GOOGLE_KEY = "AIzaSyDURS72iPBGDLrvYRoqqivse3zIiqvbVnU";
-    //final String GOOGLE_KEY = "AIzaSyD7KfyVhXLs5sKtRPMDt1uCKW9vq3LPTM8";
+    final String GOOGLE_KEY = HangoutPlannerUtil.GOOGLE_KEY;
 
     private String placeid=null;
     private Place placeSelected;
