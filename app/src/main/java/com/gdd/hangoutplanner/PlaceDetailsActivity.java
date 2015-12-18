@@ -3,6 +3,7 @@ package com.gdd.hangoutplanner;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -97,6 +98,7 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
         website.setText(place.getPlaceWebSite());
         TextView open = (TextView) findViewById(R.id.textView14);
         open.setText(place.getOpenNow());
+        updateTextColor(open);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         initializeImageSwitcher();
         setInitialImage();
@@ -108,6 +110,17 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
                             .setAction("Action", null).show();
             }
         });
+    }
+
+    private void updateTextColor(TextView open) {
+        if(Boolean.valueOf(place.getOpenNow())){
+            open.setText("Open Now");
+            open.setTextColor(Color.GREEN);
+        }
+        else{
+            open.setText("Closed");
+            open.setTextColor(Color.RED);
+        }
     }
 
     private void initializeImageSwitcher() {
@@ -185,10 +198,11 @@ public class PlaceDetailsActivity extends AppCompatActivity implements OnMapRead
         double lat = Double.valueOf(place.getGeometry().getCoOrdinate().getLat());
         double longitude = Double.valueOf(place.getGeometry().getCoOrdinate().getLon());
         LatLng address = new LatLng(lat, longitude);
-        mMap.addMarker(new MarkerOptions().position(address).title(place.getFormattedAddress()));
+        Marker marker= mMap.addMarker(new MarkerOptions().position(address).title(place.getFormattedAddress()));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(address));
         float zoomLevel = 5.0f;
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(address, zoomLevel));
+        marker.showInfoWindow();
     }
 
 
