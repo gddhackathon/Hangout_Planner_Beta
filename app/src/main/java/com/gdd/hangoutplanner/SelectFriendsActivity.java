@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +34,10 @@ import java.util.Map;
 
 import model.CoOrdinate;
 import model.Geometry;
+import model.HangoutPlanner;
+import model.Place;
 import utils.ContactsUtil;
+import utils.DownloadGooglePlacesInfo;
 import utils.GeocodingLocation;
 import utils.MidPointUtil;
 
@@ -41,6 +45,7 @@ public class SelectFriendsActivity extends AppCompatActivity implements OnMapRea
 
     private GoogleMap mMap;
     private ListView lv;
+    private ListView addressView;
     ArrayAdapter<String> adapter;
     private ListView selectedContacts;
     private ArrayAdapter<String> scViewAdapter;
@@ -55,6 +60,7 @@ public class SelectFriendsActivity extends AppCompatActivity implements OnMapRea
         setContentView(R.layout.activity_select_friends);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("Select Friends");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -170,14 +176,29 @@ public class SelectFriendsActivity extends AppCompatActivity implements OnMapRea
         mMap.addMarker(new MarkerOptions().position(address).title(location2[0]));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(address));
         float zoomLevel = 5.0f;
-        //double lat3 = Double.parseDouble(location3[1]);
-        //double longitude3 = Double.parseDouble(location3[2]);
-        //LatLng address3 = new LatLng(lat3, longitude3);
-        //mMap.addMarker(new MarkerOptions().position(address3).title(location3[0]));
-        //double lat4 = Double.parseDouble(location4[1]);
-        //double longitude4 = Double.parseDouble(location4[2]);
-        //LatLng address4 = new LatLng(lat4, longitude4);
-        //mMap.addMarker(new MarkerOptions().position(address4).title(location4[0]));
+        addressView = (ListView)findViewById(R.id.listView);
+        List<String> suggAddress = new ArrayList<>();
+        suggAddress.add(location1[0]);
+        suggAddress.add(location2[0]);
+        //addAddressToContact(contacts);
+        adapter = new ArrayAdapter<String>(this,R.layout.contacts_list_item,R.id.contact_name, suggAddress);
+        adapter.notifyDataSetChanged();
+        addressView.setAdapter(adapter);
+        addressView.setVisibility(View.VISIBLE);
+        addressView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+                Object o = addressView.getItemAtPosition(position);
+                String address = (String) o;
+                HangoutPlanner hangoutPlanner = (HangoutPlanner)getApplicationContext();
+                hangoutPlanner.setSelectedAddress(address);
+                hangoutPlanner.setLatLon(geometries.get(position).getCoOrdinate().getLat()+":"+geometries.get(position).getCoOrdinate().getLon());
+                Intent intent = new Intent(getApplication(), AddFavouritesActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private class GeocoderHandler extends Handler {
