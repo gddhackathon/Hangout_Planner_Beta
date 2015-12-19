@@ -64,13 +64,14 @@ public class SelectFriendsActivity extends AppCompatActivity implements OnMapRea
         toolbar.setTitle("Select Friends");
         setSupportActionBar(toolbar);
 
-        
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         inputSearch = (EditText) findViewById(R.id.inputSearch);
         lv = (ListView)findViewById(R.id.listViewContacts);
+        final View line3 = (View) findViewById(R.id.line3);
         List<String> contacts = ContactsUtil.displayContacts(getContentResolver());
         //addAddressToContact(contacts);
         adapter = new ArrayAdapter<String>(this,R.layout.contacts_list_item,R.id.contact_name, contacts);
@@ -83,10 +84,12 @@ public class SelectFriendsActivity extends AppCompatActivity implements OnMapRea
             public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
                 // When user changed the Text
                 if (0 == cs.length()) {
+                    line3.setVisibility(View.GONE);
                     lv.setVisibility(View.GONE);
                 } else {
                     SelectFriendsActivity.this.adapter.getFilter().filter(cs);
                     lv.setVisibility(View.VISIBLE);
+                    line3.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -202,14 +205,16 @@ public class SelectFriendsActivity extends AppCompatActivity implements OnMapRea
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Object o = addressView.getItemAtPosition(position);
                 String address = (String) o;
-                HangoutPlanner hangoutPlanner = (HangoutPlanner)getApplicationContext();
+                HangoutPlanner hangoutPlanner = (HangoutPlanner) getApplicationContext();
                 hangoutPlanner.setSelectedAddress(address);
-                hangoutPlanner.setLatLon(geometries.get(position+2).getCoOrdinate().getLat() + ":" + geometries.get(position+2).getCoOrdinate().getLon());
+                hangoutPlanner.setLatLon(geometries.get(position + 2).getCoOrdinate().getLat() + ":" + geometries.get(position + 2).getCoOrdinate().getLon());
                 Intent intent = new Intent(getApplication(), AddFavouritesActivity.class);
                 startActivity(intent);
             }
         });
 
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.relativeLayout4);
+        rl.setVisibility(View.VISIBLE);
         View view2 = this.getCurrentFocus();
         if (view2 != null) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);

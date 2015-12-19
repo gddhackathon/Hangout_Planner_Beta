@@ -32,6 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Find Place"
+        android:background="@drawable/roundedbutton"
+        android:textColor="@color/white"
         android:id="@+id/findPlace"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -52,6 +54,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="22dp"
+        android:visibility="gone"
         android:id="@+id/line3" />
 
     <ListView
@@ -66,6 +69,7 @@
         android:layout_width="match_parent"
         android:layout_below="@+id/relativeSearch"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:id="@+id/relativeLayout4">
 
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
@@ -78,9 +82,19 @@
             android:layout_alignParentTop="true"
             tools:context="hangoutplanner.gdd.com.testmap.MapsActivity"
             android:layout_above="@+id/textView4"/>
+
+        <TextView
+            android:id="@+id/texttemp"
+            android:layout_below="@+id/map"
+            android:text="Clilax Suggestion of Places for you"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
         <ScrollView
             android:id="@+id/scorllId"
-            android:layout_below="@+id/map"
+            android:layout_below="@+id/texttemp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
