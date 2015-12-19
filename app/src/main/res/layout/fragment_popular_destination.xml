@@ -20,8 +20,9 @@
                 android:id="@+id/searchDestAutoCompView"
                 android:hint="@string/search_your_destinations"
                 android:layout_width="325dp"
-                android:layout_height="wrap_content"
+                android:layout_height="60dp"
                 android:layout_marginTop="17dp"
+                android:background="#E3F2FD"
                 android:ems="10"
                 android:text=""
                 android:layout_alignParentLeft="true"
@@ -38,9 +39,10 @@
                 android:id="@+id/addFavourites"
                 android:layout_gravity="right"
                 android:onClick="onClickPopularDestination"
-                android:layout_alignTop="@+id/searchDestAutoCompView"
+                android:layout_above="@+id/scrollView"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/searchDestAutoCompView" />
 
             <ScrollView
                 android:id="@+id/scrollView"
