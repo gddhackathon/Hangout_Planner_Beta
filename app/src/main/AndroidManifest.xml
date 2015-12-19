@@ -77,6 +77,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.gdd.hangoutplanner.DisplayPlacesActivity" />
         </activity>
+        <activity
+            android:name=".SelectFriendsActivity"
+            android:label="@string/title_activity_select_friends"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.gdd.hangoutplanner.MainActivity" />
+        </activity>
+        <activity
+            android:name=".SuggestPlacesActivity"
+            android:label="@string/title_activity_suggest_places"
+            android:parentActivityName=".SelectFriendsActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.gdd.hangoutplanner.SelectFriendsActivity" />
+        </activity>
     </application>
 
 </manifest>
