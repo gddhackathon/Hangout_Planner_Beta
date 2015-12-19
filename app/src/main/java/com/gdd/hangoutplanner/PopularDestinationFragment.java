@@ -22,7 +22,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.gdd.hangoutplanner.R;
 
@@ -60,7 +59,7 @@ public class PopularDestinationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (latLon == null) {
-                    Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_place_error_message, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_place_error_message, Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
                     final HangoutPlanner hangoutPlanner = (HangoutPlanner) getActivity().getApplicationContext();
@@ -174,9 +173,9 @@ public class PopularDestinationFragment extends Fragment {
                 String address = str;
                 GeocodingLocation locationAddress = new GeocodingLocation();
                 locationAddress.getLocationFromAddress(address, getActivity().getApplicationContext(), new GeocoderHandler());
-                Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
                 if (latLon == null) {
-                    Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_place_error_message, Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(getActivity().getApplicationContext(), R.string.invalid_place_error_message, Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(getActivity(), AddFavouritesActivity.class);
                     final HangoutPlanner hangoutPlanner = (HangoutPlanner) getActivity().getApplicationContext();
@@ -206,7 +205,7 @@ public class PopularDestinationFragment extends Fragment {
             }
             latLon = locationLatLon;
             selectedAddress  = locationAddress;
-            Toast.makeText(getActivity().getApplicationContext(), latLon, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getActivity().getApplicationContext(), latLon, Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -45,8 +45,10 @@ public class DisplayPlacesActivity extends AppCompatActivity {
         //Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
         setContentView(R.layout.activity_display_places);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        HangoutPlanner hangoutPlanner = (HangoutPlanner) getApplicationContext();
+        toolbar.setTitle("Results Found ");
+        toolbar.setSubtitle(hangoutPlanner.getSelectedAddress());
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setIcon(R.drawable.top_icon);
         // Converting HashMap Values into ArrayList - List<Place>
