@@ -17,18 +17,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void destination(View view){
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Do you want to meet your friends in mid point.?" +
-                "Lets Chillax suggest a place where to hangout")
+        builder.setMessage("Do you have a place in mind?")
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        Intent intent = new Intent(builder.getContext(),SelectFriendsActivity.class);
+                        Intent intent = new Intent(builder.getContext(),DestinationActivity.class);
                         startActivity(intent);
                     }
                 })
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        Intent intent = new Intent(builder.getContext(),DestinationActivity.class);
+                        Intent intent = new Intent(builder.getContext(),SelectFriendsActivity.class);
                         startActivity(intent);
                     }
                 });
