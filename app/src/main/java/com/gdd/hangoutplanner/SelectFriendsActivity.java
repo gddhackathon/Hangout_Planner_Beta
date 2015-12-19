@@ -154,6 +154,16 @@ public class SelectFriendsActivity extends AppCompatActivity implements OnMapRea
         System.out.println("location2 = " + location2[0]+location2[1]+location2[2]);
         //System.out.println("location3 = " + location3[0]+location3[1]+location3[2]);
         //System.out.println("location4 = " + location4[0]+location4[1]+location4[2]);
+        CoOrdinate c1 = new CoOrdinate();
+        c1.setLat(location1[1]);
+        c1.setLon(location1[2]);
+        Geometry g1 = new Geometry(c1);
+        geometries.add(g1);
+        CoOrdinate c2 = new CoOrdinate();
+        c2.setLat(location2[1]);
+        c2.setLon(location2[2]);
+        Geometry g2 = new Geometry(c1);
+        geometries.add(g2);
         double person1Lat = Double.parseDouble(geometries.get(0).getCoOrdinate().getLat());
         double person1Lon = Double.parseDouble(geometries.get(0).getCoOrdinate().getLon());
         LatLng person1LatLon = new LatLng(person1Lat, person1Lon);
@@ -193,7 +203,7 @@ public class SelectFriendsActivity extends AppCompatActivity implements OnMapRea
                 String address = (String) o;
                 HangoutPlanner hangoutPlanner = (HangoutPlanner)getApplicationContext();
                 hangoutPlanner.setSelectedAddress(address);
-                hangoutPlanner.setLatLon(geometries.get(position).getCoOrdinate().getLat()+":"+geometries.get(position).getCoOrdinate().getLon());
+                hangoutPlanner.setLatLon(geometries.get(position+2).getCoOrdinate().getLat() + ":" + geometries.get(position+2).getCoOrdinate().getLon());
                 Intent intent = new Intent(getApplication(), AddFavouritesActivity.class);
                 startActivity(intent);
             }
